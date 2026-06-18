@@ -23,10 +23,6 @@ The demo focuses on turning that abstract value proposition into a visual produc
 
 ![Landing experience](./app_overview_reference.jpeg)
 
-### Dashboard Overview
-
-![Dashboard overview](./app_dreamstate.png)
-
 ### Experimental Card Direction
 
 ![Experimental card direction](./cool_card_animation_shape.jpeg)
