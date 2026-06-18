@@ -1,36 +1,158 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WeLink Demo
+
+A polished demo experience for exploring relationship-driven business development inside a modern network dashboard.
+
+![WeLink overview](./app_dreamstate.png)
+
+## Why WeLink
+
+Most CRM interfaces are excellent at storing records and weak at surfacing relationship momentum.
+
+WeLink is positioned as a relationship intelligence layer for business development teams that need to answer questions like:
+
+- who is the strongest-fit introduction target right now
+- where warm paths already exist across the network
+- which companies are strategically aligned before time is spent on outreach
+- how opportunity value and relationship strength should be evaluated together
+
+The demo focuses on turning that abstract value proposition into a visual product experience.
+
+## Gallery
+
+### Landing Experience
+
+![Landing experience](./app_overview_reference.jpeg)
+
+### Dashboard Overview
+
+![Dashboard overview](./app_dreamstate.png)
+
+### Experimental Card Direction
+
+![Experimental card direction](./cool_card_animation_shape.jpeg)
+
+## What This Is
+
+WeLink Demo is a Next.js app that packages three complementary flows:
+
+- a branded landing and login experience
+- a signed-in dashboard with an interactive company network map
+- an experimental visual network page with flipping profile cards and drill-in profile routes
+
+The project is designed as a product-style prototype rather than a bare scaffold. The emphasis is on visual clarity, relationship discovery, and high-signal opportunity surfacing.
+
+## Highlights
+
+- Interactive network dashboard with selectable companies and contextual detail panels
+- Experimental collage-style network view with flip-card interactions
+- Dynamic profile routes for selected experimental nodes
+- Tailwind CSS 4 styling with custom flip-card motion
+- Shared mock datasets for companies, contacts, fit scores, and opportunity value
+- App Router structure ready for continued product iteration
+
+## Routes
+
+- `/` — landing/login screen
+- `/dashboard` — main signed-in network dashboard
+- `/dashboard/experimental` — experimental visual network view
+- `/dashboard/experimental/[companyId]` — mock company/profile detail pages
+
+## Tech Stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- ESLint
+- Framer Motion
+- Lucide React
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000` in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Vercel
 
-## Learn More
+The fastest path is deploying with Vercel:
 
-To learn more about Next.js, take a look at the following resources:
+1. Import the GitHub repository into Vercel.
+2. Accept the default Next.js build settings.
+3. Deploy.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Manual Production Build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To verify the app locally in production mode:
 
-## Deploy on Vercel
+```bash
+npm run build
+npm run start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Then open `http://localhost:3000`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Available Scripts
+
+```bash
+npm run dev
+npm run build
+npm run start
+npm run lint
+```
+
+## Project Structure
+
+```text
+app/
+	page.tsx                          # Landing/login experience
+	dashboard/
+		page.tsx                        # Main network dashboard
+		experimental/
+			page.tsx                      # Experimental visual map
+			[companyId]/page.tsx          # Dynamic profile details
+components/
+	auth/                             # Login form UI
+	marketing/                        # Hero and landing visuals
+	network/                          # Network map, node cards, datasets
+public/                             # Logos and profile imagery
+```
+
+## Design Direction
+
+This demo leans into:
+
+- clean white surfaces with soft slate borders
+- dense but readable business intelligence cards
+- relationship-first visual metaphors instead of traditional tables
+- exploratory motion patterns for profile discovery
+
+## Notes
+
+- Data is currently mocked for demo purposes.
+- The experimental route is intentionally more visual and less system-constrained than the main dashboard.
+- Product copy, opportunity metrics, and people lists are placeholders that can be wired to a real backend later.
+
+## Next Build-Out Ideas
+
+- Persist selected companies and saved opportunities
+- Add authentication and user-specific workspaces
+- Back the network graph with live CRM or partner data
+- Introduce filters for geography, industry, and fit score
+- Add analytics around introductions, conversions, and relationship strength
+
+## Repository
+
+GitHub: https://github.com/Welink-pixie/welink-demo
