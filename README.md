@@ -19,10 +19,6 @@ The demo focuses on turning that abstract value proposition into a visual produc
 
 ## Gallery
 
-### Landing Experience
-
-![Landing experience](./app_overview_reference.jpeg)
-
 ### Experimental Card Direction
 
 ![Experimental card direction](./cool_card_animation_shape.jpeg)
