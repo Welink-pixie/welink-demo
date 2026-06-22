@@ -137,15 +137,17 @@ function FlipProfileTile({
               <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5">
                 <div className="flex items-center gap-2">
                   <div className="flex -space-x-2">
-                    {[1, 2, 3].map((i) => (
-                      <span
-                        key={i}
-                        className="inline-block h-6 w-6 rounded-full border-2 border-white bg-stone-300"
+                    {profile.contacts.map((contact) => (
+                      <img
+                        key={contact.name}
+                        src={contact.avatar}
+                        alt={contact.name}
+                        className="inline-block h-6 w-6 rounded-full border-2 border-white object-cover"
                       />
                     ))}
                   </div>
                   <span className="text-xs text-slate-500">
-                    {profile.people.length} contacts
+                    {profile.contacts.length} contacts
                   </span>
                 </div>
                 <span className="shrink-0 rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700">

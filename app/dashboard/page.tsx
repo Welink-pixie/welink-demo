@@ -4,18 +4,6 @@ import NetworkMap from "@/components/network/NetworkMap";
 import { companies } from "@/components/network/networkData";
 import { useMemo, useState } from "react";
 
-const navItems = [
-  "Home",
-  "Network",
-  "Matches",
-  "Opportunities",
-  "Introductions",
-  "Messages",
-  "Activity",
-  "Reports",
-  "Saved",
-];
-
 const topOpportunities = [
   {
     account: "Demacco Consulting",
@@ -76,40 +64,7 @@ export default function DashboardPage() {
   );
 
   return (
-    <main className="min-h-screen bg-[#f3f5fb] p-3 lg:p-4">
-      <div className="mx-auto max-w-[1500px] rounded-3xl border border-slate-200/70 bg-white shadow-sm">
-        <div className="grid min-h-[92vh] grid-cols-1 lg:grid-cols-[120px_1fr]">
-          <aside className="border-b border-slate-200 p-4 lg:border-b-0 lg:border-r lg:p-3">
-            <div className="mb-5 flex items-center justify-center lg:mb-8">
-              <img
-                src="/we_link_logo.png"
-                alt="WeLink"
-                className="h-10 w-auto object-contain"
-              />
-            </div>
-
-            <nav className="grid grid-cols-3 gap-2 sm:grid-cols-5 lg:grid-cols-1">
-              {navItems.map((item, index) => (
-                <button
-                  key={item}
-                  className={`rounded-xl px-3 py-2 text-left text-xs font-medium transition ${
-                    index === 0
-                      ? "bg-indigo-50 text-indigo-700"
-                      : "text-slate-600 hover:bg-slate-100"
-                  }`}
-                >
-                  {item}
-                </button>
-              ))}
-            </nav>
-
-            <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-3 lg:mt-8">
-              <p className="text-xs font-semibold text-slate-900">Selena Gutierrez</p>
-              <p className="text-[11px] text-slate-500">Business Development</p>
-            </div>
-          </aside>
-
-          <section className="p-4 lg:p-5">
+    <section className="p-4 lg:p-5">
             <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <h1 className="text-2xl font-semibold tracking-tight text-slate-950">
@@ -268,9 +223,6 @@ export default function DashboardPage() {
                 </div>
               </section>
             </div>
-          </section>
-        </div>
-      </div>
-    </main>
+    </section>
   );
 }
