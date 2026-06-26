@@ -447,15 +447,15 @@ export default function NetworkMap({ selectedCompanyId, onSelectCompany, mapHref
 
   const activeNodeStyles = nodeStylesByTheme[currentTheme] ?? nodeStylesByTheme.classic;
   const ambientDotClass =
-    currentTheme === "sage" ? "bg-[#c8a25a]" : currentTheme === "forest" ? "bg-[#cba85a]" : currentTheme === "graham" ? "bg-[#6b8f71]" : "bg-indigo-300";
-  const connectorStroke = currentTheme === "sage" ? "#b79a63" : currentTheme === "forest" ? "#cba85a" : currentTheme === "graham" ? "#8fa88f" : "#94a3b8";
+    currentTheme === "sage" ? "bg-[#c8a25a]" : currentTheme === "forest" ? "bg-[#cba85a]" : currentTheme === "graham" ? "bg-[#b9a06a]" : "bg-indigo-300";
+  const connectorStroke = currentTheme === "sage" ? "#b79a63" : currentTheme === "forest" ? "#cba85a" : currentTheme === "graham" ? "#94aa97" : "#94a3b8";
   const mapBackgroundClass =
     currentTheme === "sage"
       ? "bg-[radial-gradient(circle_at_50%_50%,#fbf7ef_0%,#f2e8d4_48%,#fffdf8_100%)]"
       : currentTheme === "forest"
         ? "bg-[radial-gradient(circle_at_50%_50%,#1b3d2a_0%,#2a5a42_48%,#0f2818_100%)]"
         : currentTheme === "graham"
-          ? "bg-[radial-gradient(circle_at_50%_50%,#f5f0e8_0%,#e0ebe4_48%,#f9f4ed_100%)]"
+          ? "bg-[radial-gradient(circle_at_50%_50%,#1f4e37_0%,#2e6d4e_48%,#153825_100%)]"
           : "bg-[radial-gradient(circle_at_50%_50%,#f8fafc_0%,#eef2ff_48%,#ffffff_100%)]";
 
   const projectedAmbientDots = useMemo(

@@ -40,7 +40,7 @@ export default function RootLayout({
             __html: `
               (function() {
                 const storedTheme = localStorage.getItem('app-theme');
-                if (storedTheme && ['classic', 'sage', 'forest'].includes(storedTheme)) {
+                if (storedTheme && ['classic', 'sage', 'forest', 'graham'].includes(storedTheme)) {
                   document.documentElement.setAttribute('data-theme', storedTheme);
                 }
               })();

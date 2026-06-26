@@ -52,6 +52,14 @@ body {
   display: inline-block !important;
 }
 
+[data-theme="graham"] .theme-logo-default {
+  display: none !important;
+}
+
+[data-theme="graham"] .theme-logo-sage {
+  display: inline-block !important;
+}
+
 /* Sage theme layer: earthy dark green, warm tan, and cream palette */
 [data-theme="sage"] {
   --background: #f6f1e6;
@@ -250,7 +258,7 @@ body {
 }
 
 /* Forest dark mode main content background */
-[data-theme="forest"] .bg-\\[\\#f3f5fb\\] {
+[data-theme="forest"] main[class*="bg-[#f3f5fb]"] {
   background-color: #1f4d36 !important;
 }
 
@@ -353,6 +361,11 @@ body {
 
 [data-theme="graham"] .bg-slate-900 {
   color: #f5f0e8 !important;
+}
+
+/* Graham content background: warm neutral instead of cool gray-blue */
+[data-theme="graham"] main[class*="bg-[#f3f5fb]"] {
+  background-color: #ece6db !important;
 }
 
 .flip-card {
