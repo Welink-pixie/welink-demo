@@ -63,7 +63,7 @@ export default function DashboardSidebar({ username }: { username: string }) {
 
       <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-3">
         <p className="text-xs font-semibold text-slate-900">{username}</p>
-        <p className="text-[11px] text-slate-500">Business Development</p>
+        <p className="text-sm text-slate-500">Business Development</p>
         <div className="mt-3 flex justify-end">
           <button
             type="button"

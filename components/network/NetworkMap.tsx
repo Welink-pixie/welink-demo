@@ -266,6 +266,11 @@ export default function NetworkMap({ selectedCompanyId, onSelectCompany, mapHref
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [dragOffsets, setDragOffsets] = useState<Record<string, DragOffset>>({});
   const [showHint, setShowHint] = useState(true);
+  const [isClientReady, setIsClientReady] = useState(false);
+
+  useEffect(() => {
+    setIsClientReady(true);
+  }, []);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 767px)");
@@ -461,18 +466,19 @@ export default function NetworkMap({ selectedCompanyId, onSelectCompany, mapHref
       <div className="absolute left-1/2 top-1/2 h-[68%] w-[82%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-200/40" style={{ transform: "translate(-50%, -50%) rotate(-28deg)" }} />
 
       <div className="absolute inset-0">
-        {projectedAmbientDots.map((dot, index) => (
-          <span
-            key={`dot-${index}`}
-            className="pointer-events-none absolute h-1.5 w-1.5 rounded-full bg-indigo-300"
-            style={{
-              left: `${dot.left}%`,
-              top: `${dot.top}%`,
-              opacity: dot.opacity * 0.42,
-              transform: `translate(-50%, -50%) scale(${0.55 + dot.depth * 0.65})`,
-            }}
-          />
-        ))}
+        {isClientReady &&
+          projectedAmbientDots.map((dot, index) => (
+            <span
+              key={`dot-${index}`}
+              className="pointer-events-none absolute h-1.5 w-1.5 rounded-full bg-indigo-300"
+              style={{
+                left: `${dot.left}%`,
+                top: `${dot.top}%`,
+                opacity: dot.opacity * 0.42,
+                transform: `translate(-50%, -50%) scale(${0.55 + dot.depth * 0.65})`,
+              }}
+            />
+          ))}
 
         <svg className="absolute inset-0 h-full w-full pointer-events-none">
           {connections.map(([from, to]) => {

@@ -63,7 +63,7 @@ export default function LoginForm() {
           <img
             src={currentTheme === "sage" ? "/knight_welink.png" : "/we_link_logo.png"}
             alt="WeLink"
-            className="h-12 w-auto shrink-0 object-contain"
+            className="h-32 w-auto shrink-0 object-contain"
           />
 
           <h1 className="text-3xl font-bold leading-none text-slate-900">
