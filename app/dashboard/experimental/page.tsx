@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { experimentalProfiles } from "@/components/network/experimentalProfiles";
+import ThemeLogo from "@/components/ui/ThemeLogo";
 
 const PARA_L = "polygon(14% 0%, 100% 0%, 86% 100%, 0% 100%)";
 const PARA_R = "polygon(0% 0%, 86% 0%, 100% 100%, 14% 100%)";
@@ -197,10 +198,9 @@ export default function ExperimentalDashboardPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-white p-6">
       <div className="relative w-full max-w-[1060px] pt-20">
-        <img
-          src="/we_link_logo.png"
-          alt="WeLink"
+        <ThemeLogo
           className="absolute left-0 top-0 h-10 w-auto object-contain"
+          sageClassName="absolute left-0 top-0 h-14 w-auto object-contain"
         />
         <Link
           href="/dashboard"

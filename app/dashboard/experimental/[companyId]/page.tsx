@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { companies } from "@/components/network/networkData";
+import ThemeLogo from "@/components/ui/ThemeLogo";
 
 type CompanyProfilePageProps = {
   params: Promise<{ companyId: string }>;
@@ -44,7 +45,10 @@ export default async function CompanyProfilePage({ params }: CompanyProfilePageP
       <div className="mx-auto max-w-[1400px] rounded-[28px] border border-slate-200 bg-white p-5 shadow-sm lg:p-8">
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <img src="/we_link_logo.png" alt="WeLink" className="h-10 w-auto object-contain" />
+            <ThemeLogo
+              className="h-10 w-auto object-contain"
+              sageClassName="h-14 w-auto object-contain"
+            />
             <div>
               <p className="text-sm font-medium text-slate-500">Company Profile</p>
               <h1 className="text-2xl font-semibold tracking-tight text-slate-950">

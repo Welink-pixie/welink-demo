@@ -28,6 +28,22 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.theme-logo-default {
+  display: inline-block;
+}
+
+.theme-logo-sage {
+  display: none;
+}
+
+[data-theme="sage"] .theme-logo-default {
+  display: none !important;
+}
+
+[data-theme="sage"] .theme-logo-sage {
+  display: inline-block !important;
+}
+
 /* Aurora theme layer: remaps frequently used Tailwind utility classes without changing component logic. */
 [data-theme="aurora"] .bg-white {
   background-color: #f8fcff !important;

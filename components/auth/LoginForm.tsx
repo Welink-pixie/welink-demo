@@ -4,6 +4,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import ThemeLogo from "@/components/ui/ThemeLogo";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -60,10 +61,9 @@ export default function LoginForm() {
         {/* Logo */}
 
         <div className="mb-8 flex items-center gap-4">
-          <img
-            src={currentTheme === "sage" ? "/knight_welink.png" : "/we_link_logo.png"}
-            alt="WeLink"
-            className="h-32 w-auto shrink-0 object-contain"
+          <ThemeLogo
+            className="h-14 w-auto shrink-0 object-contain"
+            sageClassName="h-20 w-auto shrink-0 object-contain lg:h-24"
           />
 
           <h1 className="text-3xl font-bold leading-none text-slate-900">

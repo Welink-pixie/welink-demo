@@ -1,6 +1,7 @@
 // components/marketing/LoginHero.tsx
 
 import NetworkMap from "@/components/network/NetworkMap";
+import ThemeLogo from "@/components/ui/ThemeLogo";
 
 export default function LoginHero() {
   return (
@@ -10,10 +11,9 @@ export default function LoginHero() {
 
       {/* Logo */}
       <div className="flex items-center gap-4">
-        <img
-          src="/we_link_logo.png"
-          alt="WeLink"
+        <ThemeLogo
           className="h-12 w-auto shrink-0 object-contain"
+          sageClassName="h-20 w-auto shrink-0 object-contain"
         />
 
         <div className="pt-0.5">
