@@ -147,9 +147,9 @@ export default function DashboardSidebar({ username }: { username: string }) {
           <Link
             key={item.label}
             href={item.href}
-            className={`group flex items-center justify-center gap-2 rounded-xl px-2 py-2.5 text-xs font-medium transition duration-200 sm:px-3 lg:justify-start lg:gap-3 lg:px-3 lg:text-sm ${
+            className={`group nav-item flex items-center justify-center gap-2 rounded-xl px-2 py-2.5 text-xs font-medium transition duration-200 sm:px-3 lg:justify-start lg:gap-3 lg:px-3 lg:text-sm ${
               isActive(item.href)
-                ? "bg-indigo-50 text-indigo-700"
+                ? "nav-item-active bg-indigo-50 text-indigo-700"
                 : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
             }`}
             title={item.label}
@@ -157,7 +157,7 @@ export default function DashboardSidebar({ username }: { username: string }) {
             <span
               className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border transition ${
                 isActive(item.href)
-                  ? "border-indigo-200 bg-white text-indigo-700"
+                  ? "nav-icon-active border-indigo-200 bg-white text-indigo-700"
                   : "border-slate-200 bg-white text-slate-500 group-hover:text-slate-700"
               }`}
             >
