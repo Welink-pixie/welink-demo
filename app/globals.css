@@ -153,99 +153,105 @@ body {
   color: #f6f1e6 !important;
 }
 
-/* Forest theme layer: deep green with moss and evergreen accents */
+/* Forest theme layer: deep green with dark mode styling */
 [data-theme="forest"] .bg-white {
-  background-color: #f7fbf7 !important;
+  background-color: #2a5a42 !important;
 }
 
 [data-theme="forest"] .bg-slate-50,
 [data-theme="forest"] .bg-slate-50\/80 {
-  background-color: #edf5ee !important;
+  background-color: #1f4d36 !important;
 }
 
 [data-theme="forest"] .bg-slate-900,
 [data-theme="forest"] .bg-slate-950 {
-  background-color: #10382c !important;
+  background-color: #0f2818 !important;
 }
 
 [data-theme="forest"] .text-slate-950,
 [data-theme="forest"] .text-slate-900 {
-  color: #10382c !important;
+  color: #f4f8b8 !important;
 }
 
 [data-theme="forest"] .text-slate-700 {
-  color: #225542 !important;
+  color: #e8f0d0 !important;
 }
 
 [data-theme="forest"] .text-slate-600,
 [data-theme="forest"] .text-slate-500 {
-  color: #557c68 !important;
+  color: #d4e0b8 !important;
 }
 
 [data-theme="forest"] .border-slate-200,
 [data-theme="forest"] .border-slate-100 {
-  border-color: #c9dccf !important;
+  border-color: #3d6a52 !important;
 }
 
 [data-theme="forest"] .focus\:border-violet-500:focus,
 [data-theme="forest"] .focus\:border-indigo-300:focus {
-  border-color: #2f6f55 !important;
+  border-color: #cba85a !important;
 }
 
 [data-theme="forest"] .text-indigo-600,
 [data-theme="forest"] .text-violet-600,
 [data-theme="forest"] .text-violet-700,
 [data-theme="forest"] .text-indigo-500 {
-  color: #2f6f55 !important;
+  color: #cba85a !important;
 }
 
 [data-theme="forest"] .border-indigo-200,
 [data-theme="forest"] .border-indigo-300,
 [data-theme="forest"] .border-violet-300 {
-  border-color: #9fc4af !important;
+  border-color: #8a7a57 !important;
 }
 
 [data-theme="forest"] .border-sky-300,
 [data-theme="forest"] .bg-sky-200 {
-  border-color: #5f9278 !important;
-  background-color: #e3efe6 !important;
+  border-color: #cba85a !important;
+  background-color: #3d6a52 !important;
 }
 
 [data-theme="forest"] .bg-indigo-50,
 [data-theme="forest"] .bg-indigo-500 {
-  background-color: #ddece1 !important;
+  background-color: #2a5a42 !important;
 }
 
 [data-theme="forest"] .bg-indigo-600 {
-  background-color: #2f6f55 !important;
+  background-color: #cba85a !important;
+  color: #0f2818 !important;
 }
 
 [data-theme="forest"] .text-emerald-600,
 [data-theme="forest"] .text-emerald-700,
 [data-theme="forest"] .text-emerald-800 {
-  color: #1f7a4e !important;
+  color: #8ed5a4 !important;
 }
 
 [data-theme="forest"] .bg-emerald-50,
 [data-theme="forest"] .bg-emerald-500 {
-  background-color: #dbefe0 !important;
+  background-color: #2a5a42 !important;
 }
 
 [data-theme="forest"] .border-emerald-200 {
-  border-color: #9fceb0 !important;
+  border-color: #4d8168 !important;
 }
 
 [data-theme="forest"] .text-rose-600 {
-  color: #9f3b3b !important;
+  color: #ff8a7a !important;
 }
 
 [data-theme="forest"] .hover\:bg-slate-100:hover,
 [data-theme="forest"] .hover\:bg-slate-800:hover {
-  background-color: #e3eee5 !important;
+  background-color: #2a5a42 !important;
 }
 
 [data-theme="forest"] .bg-slate-900 {
   color: #eef5ef !important;
+}
+
+/* Forest dark mode main content background */
+[data-theme="forest"] .bg-\\[\\#f3f5fb\\] {
+  background-color: #1f4d36 !important;
 }
 
 .flip-card {
