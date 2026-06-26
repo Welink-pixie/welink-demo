@@ -48,11 +48,11 @@ const activityItems = [
 ];
 
 const timelineItems = [
-  "Intro Requested",
-  "Introduction Made",
-  "Meeting Completed",
-  "Proposal Sent",
-  "Partnership Signed",
+  { label: "Intro Requested", completed: true },
+  { label: "Introduction Made", completed: true },
+  { label: "Meeting Completed", completed: true },
+  { label: "Proposal Sent", completed: false },
+  { label: "Partnership Signed", completed: false },
 ];
 
 export default function DashboardPage() {
@@ -306,14 +306,19 @@ export default function DashboardPage() {
                   <>
                     <div className="space-y-3">
                       {timelineItems.map((item) => (
-                        <article key={item} className="flex items-center gap-3">
-                          <span className="timeline-arrow flex h-4 w-4 items-center justify-center text-emerald-600" aria-hidden="true">
-                            <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4" stroke="currentColor" strokeWidth="1.7">
-                              <path d="M8 2.5v9" strokeLinecap="round" />
-                              <path d="M5.2 8.8L8 11.6l2.8-2.8" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                          </span>
-                          <p className="text-sm text-slate-700">{item}</p>
+                        <article
+                          key={item.label}
+                          className={`flex items-center gap-3 transition ${item.completed ? "opacity-100" : "opacity-45"}`}
+                        >
+                          <span
+                            className={`h-2.5 w-2.5 rounded-full ${
+                              item.completed ? "bg-emerald-500" : "border border-slate-300 bg-transparent"
+                            }`}
+                            aria-hidden="true"
+                          />
+                          <p className={`text-sm ${item.completed ? "text-slate-700" : "text-slate-500"}`}>
+                            {item.label}
+                          </p>
                         </article>
                       ))}
                     </div>
