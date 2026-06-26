@@ -96,8 +96,8 @@ export default function DashboardPage() {
   );
 
   return (
-    <section className="p-4 lg:p-5">
-            <div className="mb-4 flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/80 p-3 lg:flex-row lg:items-center lg:justify-between lg:p-4">
+        <section className="dashboard-overview-page p-4 lg:p-5">
+          <div className="overview-left-hero mb-4 flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/80 p-3 lg:flex-row lg:items-center lg:justify-between lg:p-4">
               <div>
                 <h1 className="text-2xl font-semibold tracking-tight text-slate-950">
                   Good morning, {isProfileLoading ? "..." : username}
@@ -118,7 +118,7 @@ export default function DashboardPage() {
             </div>
 
             <div className="grid gap-4 xl:grid-cols-[1.8fr_1fr]">
-              <div className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 p-2">
+              <div className="overview-left-map overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 p-2">
                 <NetworkMap
                   selectedCompanyId={selectedCompany.id}
                   onSelectCompany={setSelectedCompanyId}
