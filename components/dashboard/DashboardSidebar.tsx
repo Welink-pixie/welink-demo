@@ -138,7 +138,8 @@ export default function DashboardSidebar({ username }: { username: string }) {
       <div className="mb-8 flex items-center justify-center">
         <ThemeLogo
           className="h-24 w-auto object-contain"
-          sageClassName="h-36 w-auto object-contain"
+          sageClassName="h-28 w-auto object-contain"
+          disableKnightShadow
         />
       </div>
 
