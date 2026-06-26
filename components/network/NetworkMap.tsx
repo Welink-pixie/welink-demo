@@ -20,34 +20,6 @@ type NetworkMapProps = {
 };
 
 type AppTheme = "classic" | "sage" | "forest" | "graham";
-  graham: {
-    demacco: {
-      shell:
-        "border-[#7b9d7e]/80 bg-[linear-gradient(145deg,#f0f4ed_0%,#e0ecd9_32%,#faf9f6_62%,#d9e5ce_100%)] bg-[length:220%_220%] shadow-[#8fa88f]/40 animate-superconnector-shimmer",
-      core: "bg-[linear-gradient(120deg,#6b8f71_0%,#5a7f67_44%,#7ba589_78%,#6b8f71_100%)] bg-[length:220%_220%] animate-superconnector-shimmer",
-      ring: "bg-[#6b8f71]/30",
-    },
-    northline: {
-      shell: "border-[#d5cec2] bg-[linear-gradient(150deg,#f8f5f0_0%,#f0e8de_45%,#faf7f4_100%)] shadow-[#d5cec2]/60",
-      core: "bg-[linear-gradient(135deg,#5a7f67_0%,#447154_100%)]",
-      ring: "bg-[#6b8f71]/30",
-    },
-    healthfirst: {
-      shell: "border-[#d0dcd2] bg-[linear-gradient(150deg,#f2f8f4_0%,#e5f0e6_45%,#fafcfb_100%)] shadow-[#d0dcd2]/60",
-      core: "bg-[linear-gradient(135deg,#4a7557_0%,#3d6248_100%)]",
-      ring: "bg-[#5a7f67]/30",
-    },
-    futureflow: {
-      shell: "border-[#d9d2c7] bg-[linear-gradient(150deg,#f4f1ed_0%,#eae3d6_45%,#fbfbf8_100%)] shadow-[#d9d2c7]/60",
-      core: "bg-[linear-gradient(135deg,#7a8f79_0%,#68796a_100%)]",
-      ring: "bg-[#7a8f79]/28",
-    },
-    vertex: {
-      shell: "border-[#dcd5cb] bg-[linear-gradient(150deg,#f6f3f0_0%,#ede8de_45%,#fbfaf8_100%)] shadow-[#dcd5cb]/55",
-      core: "bg-[linear-gradient(135deg,#6b8f71_0%,#5a7f67_100%)]",
-      ring: "bg-[#6b8f71]/35",
-    },
-  },
 
 type NodeStyle = {
   shell: string;
@@ -176,6 +148,35 @@ const nodeStylesByTheme: Record<AppTheme, Record<string, NodeStyle>> = {
       ring: "bg-[#3f7f62]/35",
     },
   },
+  graham: {
+    demacco: {
+      shell:
+        "border-[#7b9d7e]/80 bg-[linear-gradient(145deg,#f0f4ed_0%,#e0ecd9_32%,#faf9f6_62%,#d9e5ce_100%)] bg-[length:220%_220%] shadow-[#8fa88f]/40 animate-superconnector-shimmer",
+      core: "bg-[linear-gradient(120deg,#6b8f71_0%,#5a7f67_44%,#7ba589_78%,#6b8f71_100%)] bg-[length:220%_220%] animate-superconnector-shimmer",
+      ring: "bg-[#6b8f71]/30",
+    },
+    northline: {
+      shell: "border-[#d5cec2] bg-[linear-gradient(150deg,#f8f5f0_0%,#f0e8de_45%,#faf7f4_100%)] shadow-[#d5cec2]/60",
+      core: "bg-[linear-gradient(135deg,#5a7f67_0%,#447154_100%)]",
+      ring: "bg-[#6b8f71]/30",
+    },
+    healthfirst: {
+      shell: "border-[#d0dcd2] bg-[linear-gradient(150deg,#f2f8f4_0%,#e5f0e6_45%,#fafcfb_100%)] shadow-[#d0dcd2]/60",
+      core: "bg-[linear-gradient(135deg,#4a7557_0%,#3d6248_100%)]",
+      ring: "bg-[#5a7f67]/30",
+    },
+    futureflow: {
+      shell: "border-[#d9d2c7] bg-[linear-gradient(150deg,#f4f1ed_0%,#eae3d6_45%,#fbfbf8_100%)] shadow-[#d9d2c7]/60",
+      core: "bg-[linear-gradient(135deg,#7a8f79_0%,#68796a_100%)]",
+      ring: "bg-[#7a8f79]/28",
+    },
+    vertex: {
+      shell: "border-[#dcd5cb] bg-[linear-gradient(150deg,#f6f3f0_0%,#ede8de_45%,#fbfaf8_100%)] shadow-[#dcd5cb]/55",
+      core: "bg-[linear-gradient(135deg,#6b8f71_0%,#5a7f67_100%)]",
+      ring: "bg-[#6b8f71]/35",
+    },
+  },
+};
 };
 
 const ambientDots = Array.from({ length: 28 }, (_, index) => {
