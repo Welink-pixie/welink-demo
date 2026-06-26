@@ -265,6 +265,69 @@ body {
   color: #eef5ef !important;
 }
 
+/* Forest dashboard shell: soften global dashboard canvas for eye comfort */
+[data-theme="forest"] .dashboard-main-shell {
+  background: linear-gradient(160deg, #e7efe8 0%, #dce9de 52%, #d5e4d8 100%) !important;
+}
+
+[data-theme="forest"] .dashboard-frame {
+  background-color: #f4f8f3 !important;
+  border-color: #bfd1c2 !important;
+  box-shadow: 0 12px 28px rgba(16, 56, 44, 0.12) !important;
+}
+
+[data-theme="forest"] .dashboard-sidebar-shell {
+  background-color: #f2f7f1 !important;
+  border-right-color: #bfd1c2 !important;
+}
+
+/* Forest Home Overview: improve hierarchy and readability while preserving map mood */
+[data-theme="forest"] .dashboard-overview-page .overview-main-grid .overview-detail-panel {
+  background-color: #f8fbf6 !important;
+  border-color: #bfd1c2 !important;
+}
+
+[data-theme="forest"] .dashboard-overview-page .overview-bottom-grid > section {
+  background-color: #f8fbf6 !important;
+  border-color: #bfd1c2 !important;
+}
+
+[data-theme="forest"] .dashboard-overview-page .text-slate-950,
+[data-theme="forest"] .dashboard-overview-page .text-slate-900 {
+  color: #123a2b !important;
+}
+
+[data-theme="forest"] .dashboard-overview-page .text-slate-700 {
+  color: #255240 !important;
+}
+
+[data-theme="forest"] .dashboard-overview-page .text-slate-600,
+[data-theme="forest"] .dashboard-overview-page .text-slate-500 {
+  color: #4a6f5d !important;
+}
+
+[data-theme="forest"] .dashboard-overview-page .border-slate-200,
+[data-theme="forest"] .dashboard-overview-page .border-slate-100 {
+  border-color: #bfd1c2 !important;
+}
+
+[data-theme="forest"] .dashboard-overview-page .bg-slate-50,
+[data-theme="forest"] .dashboard-overview-page .bg-slate-50\/80,
+[data-theme="forest"] .dashboard-overview-page .bg-white {
+  background-color: #edf4ed !important;
+}
+
+[data-theme="forest"] .dashboard-overview-page .bg-slate-900 {
+  background-color: #0f3a28 !important;
+  color: #f2f8ee !important;
+}
+
+[data-theme="forest"] .dashboard-overview-page .text-emerald-600,
+[data-theme="forest"] .dashboard-overview-page .text-emerald-700,
+[data-theme="forest"] .dashboard-overview-page .text-emerald-800 {
+  color: #1f6d47 !important;
+}
+
 /* Forest dark mode main content background */
 [data-theme="forest"] main[class*="bg-[#f3f5fb]"] {
   background-color: #1f4d36 !important;

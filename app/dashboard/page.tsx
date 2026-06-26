@@ -117,7 +117,7 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className="grid gap-4 xl:grid-cols-[1.8fr_1fr]">
+            <div className="overview-main-grid grid gap-4 xl:grid-cols-[1.8fr_1fr]">
               <div className="overview-left-map overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 p-2">
                 <NetworkMap
                   selectedCompanyId={selectedCompany.id}
@@ -126,7 +126,7 @@ export default function DashboardPage() {
                 />
               </div>
 
-              <aside className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+              <aside className="overview-detail-panel rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
                 <div className="mb-4 flex items-start justify-between">
                   <div>
                     {isDashboardLoading ? (
@@ -206,7 +206,7 @@ export default function DashboardPage() {
               </aside>
             </div>
 
-            <div className="mt-4 grid gap-4 lg:grid-cols-3">
+            <div className="overview-bottom-grid mt-4 grid gap-4 lg:grid-cols-3">
               <section className="rounded-2xl border border-slate-200 bg-white p-5">
                 <div className="mb-4 flex items-center justify-between">
                   <h3 className="text-sm font-semibold text-slate-900">Top Opportunities</h3>

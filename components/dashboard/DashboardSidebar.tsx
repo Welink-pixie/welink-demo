@@ -134,7 +134,7 @@ export default function DashboardSidebar({ username }: { username: string }) {
   };
 
   return (
-    <aside className="border-b border-slate-200 p-4 lg:border-b-0 lg:border-r lg:bg-white lg:p-5">
+    <aside className="dashboard-sidebar-shell border-b border-slate-200 p-4 lg:border-b-0 lg:border-r lg:bg-white lg:p-5">
       <div className="mb-8 flex items-center justify-center">
         <ThemeLogo
           className="h-24 w-auto object-contain"
