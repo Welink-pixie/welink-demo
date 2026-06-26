@@ -200,7 +200,7 @@ export default function ExperimentalDashboardPage() {
       <div className="relative w-full max-w-[1060px] pt-20">
         <ThemeLogo
           className="absolute left-0 top-0 h-10 w-auto object-contain"
-          sageClassName="absolute left-0 top-0 h-14 w-auto object-contain"
+          sageClassName="absolute left-0 top-0 h-16 w-auto object-contain"
         />
         <Link
           href="/dashboard"

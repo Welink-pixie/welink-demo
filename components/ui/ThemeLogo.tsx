@@ -21,7 +21,7 @@ export default function ThemeLogo({
       <img
         src="/knight_welink.png"
         alt={alt}
-        className={`theme-logo-sage ${sageLogoClass}`}
+        className={`theme-logo-sage ${sageLogoClass} drop-shadow-[0_2px_8px_rgba(14,59,46,0.22)]`}
       />
     </>
   );

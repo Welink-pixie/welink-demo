@@ -13,7 +13,7 @@ export default function LoginHero() {
       <div className="flex items-center gap-4">
         <ThemeLogo
           className="h-12 w-auto shrink-0 object-contain"
-          sageClassName="h-20 w-auto shrink-0 object-contain"
+          sageClassName="h-24 w-auto shrink-0 object-contain"
         />
 
         <div className="pt-0.5">

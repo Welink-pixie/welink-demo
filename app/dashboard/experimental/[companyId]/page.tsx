@@ -47,7 +47,7 @@ export default async function CompanyProfilePage({ params }: CompanyProfilePageP
           <div className="flex items-center gap-4">
             <ThemeLogo
               className="h-10 w-auto object-contain"
-              sageClassName="h-14 w-auto object-contain"
+              sageClassName="h-16 w-auto object-contain"
             />
             <div>
               <p className="text-sm font-medium text-slate-500">Company Profile</p>

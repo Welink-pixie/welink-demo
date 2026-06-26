@@ -19,6 +19,14 @@ type NetworkMapProps = {
   mapHref?: string;
 };
 
+type AppTheme = "classic" | "aurora" | "sage";
+
+type NodeStyle = {
+  shell: string;
+  core: string;
+  ring: string;
+};
+
 type ProjectedPoint = {
   left: number;
   top: number;
@@ -55,39 +63,90 @@ const companyCoordinates: Record<string, { lat: number; lon: number }> = {
   vertex: { lat: -25, lon: 120 },
 };
 
-const nodeStyles: Record<
-  string,
-  {
-    shell: string;
-    core: string;
-    ring: string;
-  }
-> = {
-  demacco: {
-    shell:
-      "border-sky-300/90 bg-[linear-gradient(140deg,#eff6ff_0%,#dbeafe_28%,#ffffff_55%,#bfdbfe_78%,#eff6ff_100%)] bg-[length:220%_220%] shadow-sky-200/80 animate-superconnector-shimmer",
-    core: "bg-[linear-gradient(120deg,#0ea5e9_0%,#2563eb_42%,#60a5fa_72%,#0ea5e9_100%)] bg-[length:220%_220%] animate-superconnector-shimmer",
-    ring: "bg-sky-300/30",
+const nodeStylesByTheme: Record<AppTheme, Record<string, NodeStyle>> = {
+  classic: {
+    demacco: {
+      shell:
+        "border-sky-300/90 bg-[linear-gradient(140deg,#eff6ff_0%,#dbeafe_28%,#ffffff_55%,#bfdbfe_78%,#eff6ff_100%)] bg-[length:220%_220%] shadow-sky-200/80 animate-superconnector-shimmer",
+      core: "bg-[linear-gradient(120deg,#0ea5e9_0%,#2563eb_42%,#60a5fa_72%,#0ea5e9_100%)] bg-[length:220%_220%] animate-superconnector-shimmer",
+      ring: "bg-sky-300/30",
+    },
+    northline: {
+      shell: "border-cyan-200/90 bg-[linear-gradient(150deg,#ecfeff_0%,#cffafe_45%,#f8fafc_100%)] shadow-cyan-100/80",
+      core: "bg-[linear-gradient(135deg,#06b6d4_0%,#0891b2_100%)]",
+      ring: "bg-cyan-200/40",
+    },
+    healthfirst: {
+      shell: "border-emerald-200/90 bg-[linear-gradient(150deg,#ecfdf5_0%,#d1fae5_45%,#f8fafc_100%)] shadow-emerald-100/80",
+      core: "bg-[linear-gradient(135deg,#10b981_0%,#059669_100%)]",
+      ring: "bg-emerald-200/40",
+    },
+    futureflow: {
+      shell: "border-violet-200/90 bg-[linear-gradient(150deg,#f5f3ff_0%,#ede9fe_45%,#f8fafc_100%)] shadow-violet-100/80",
+      core: "bg-[linear-gradient(135deg,#8b5cf6_0%,#7c3aed_100%)]",
+      ring: "bg-violet-200/40",
+    },
+    vertex: {
+      shell: "border-amber-200/90 bg-[linear-gradient(150deg,#fffbeb_0%,#fef3c7_45%,#f8fafc_100%)] shadow-amber-100/80",
+      core: "bg-[linear-gradient(135deg,#f59e0b_0%,#d97706_100%)]",
+      ring: "bg-amber-200/40",
+    },
   },
-  northline: {
-    shell: "border-cyan-200/90 bg-[linear-gradient(150deg,#ecfeff_0%,#cffafe_45%,#f8fafc_100%)] shadow-cyan-100/80",
-    core: "bg-[linear-gradient(135deg,#06b6d4_0%,#0891b2_100%)]",
-    ring: "bg-cyan-200/40",
+  aurora: {
+    demacco: {
+      shell:
+        "border-sky-300/90 bg-[linear-gradient(140deg,#eff6ff_0%,#dbeafe_28%,#ffffff_55%,#bfdbfe_78%,#eff6ff_100%)] bg-[length:220%_220%] shadow-sky-200/80 animate-superconnector-shimmer",
+      core: "bg-[linear-gradient(120deg,#0ea5e9_0%,#2563eb_42%,#60a5fa_72%,#0ea5e9_100%)] bg-[length:220%_220%] animate-superconnector-shimmer",
+      ring: "bg-sky-300/30",
+    },
+    northline: {
+      shell: "border-cyan-200/90 bg-[linear-gradient(150deg,#ecfeff_0%,#cffafe_45%,#f8fafc_100%)] shadow-cyan-100/80",
+      core: "bg-[linear-gradient(135deg,#06b6d4_0%,#0891b2_100%)]",
+      ring: "bg-cyan-200/40",
+    },
+    healthfirst: {
+      shell: "border-emerald-200/90 bg-[linear-gradient(150deg,#ecfdf5_0%,#d1fae5_45%,#f8fafc_100%)] shadow-emerald-100/80",
+      core: "bg-[linear-gradient(135deg,#10b981_0%,#059669_100%)]",
+      ring: "bg-emerald-200/40",
+    },
+    futureflow: {
+      shell: "border-violet-200/90 bg-[linear-gradient(150deg,#f5f3ff_0%,#ede9fe_45%,#f8fafc_100%)] shadow-violet-100/80",
+      core: "bg-[linear-gradient(135deg,#8b5cf6_0%,#7c3aed_100%)]",
+      ring: "bg-violet-200/40",
+    },
+    vertex: {
+      shell: "border-amber-200/90 bg-[linear-gradient(150deg,#fffbeb_0%,#fef3c7_45%,#f8fafc_100%)] shadow-amber-100/80",
+      core: "bg-[linear-gradient(135deg,#f59e0b_0%,#d97706_100%)]",
+      ring: "bg-amber-200/40",
+    },
   },
-  healthfirst: {
-    shell: "border-emerald-200/90 bg-[linear-gradient(150deg,#ecfdf5_0%,#d1fae5_45%,#f8fafc_100%)] shadow-emerald-100/80",
-    core: "bg-[linear-gradient(135deg,#10b981_0%,#059669_100%)]",
-    ring: "bg-emerald-200/40",
-  },
-  futureflow: {
-    shell: "border-violet-200/90 bg-[linear-gradient(150deg,#f5f3ff_0%,#ede9fe_45%,#f8fafc_100%)] shadow-violet-100/80",
-    core: "bg-[linear-gradient(135deg,#8b5cf6_0%,#7c3aed_100%)]",
-    ring: "bg-violet-200/40",
-  },
-  vertex: {
-    shell: "border-amber-200/90 bg-[linear-gradient(150deg,#fffbeb_0%,#fef3c7_45%,#f8fafc_100%)] shadow-amber-100/80",
-    core: "bg-[linear-gradient(135deg,#f59e0b_0%,#d97706_100%)]",
-    ring: "bg-amber-200/40",
+  sage: {
+    demacco: {
+      shell:
+        "border-[#c8a25a]/80 bg-[linear-gradient(145deg,#f7efe0_0%,#efdfc1_32%,#fffaf0_62%,#e7d3aa_100%)] bg-[length:220%_220%] shadow-[#c8a25a]/40 animate-superconnector-shimmer",
+      core: "bg-[linear-gradient(120deg,#c8a25a_0%,#b88d45_44%,#d5b877_78%,#c8a25a_100%)] bg-[length:220%_220%] animate-superconnector-shimmer",
+      ring: "bg-[#c8a25a]/30",
+    },
+    northline: {
+      shell: "border-[#d9d4c7] bg-[linear-gradient(150deg,#f9f4e9_0%,#efe5d1_45%,#faf7f0_100%)] shadow-[#d9d4c7]/60",
+      core: "bg-[linear-gradient(135deg,#487a67_0%,#2f5f4c_100%)]",
+      ring: "bg-[#5c8a79]/30",
+    },
+    healthfirst: {
+      shell: "border-[#c8e0c9] bg-[linear-gradient(150deg,#f0f8f1_0%,#deecdf_44%,#f9fbf8_100%)] shadow-[#bfd9c0]/60",
+      core: "bg-[linear-gradient(135deg,#2e7d32_0%,#256b2a_100%)]",
+      ring: "bg-[#2e7d32]/30",
+    },
+    futureflow: {
+      shell: "border-[#d6ccbb] bg-[linear-gradient(150deg,#f4eee3_0%,#e8decd_45%,#fbf8f2_100%)] shadow-[#d9d4c7]/60",
+      core: "bg-[linear-gradient(135deg,#8a7a57_0%,#6f6246_100%)]",
+      ring: "bg-[#8a7a57]/28",
+    },
+    vertex: {
+      shell: "border-[#e3d2a6] bg-[linear-gradient(150deg,#fcf6ea_0%,#f2e4c6_45%,#fbf8f0_100%)] shadow-[#e3d2a6]/55",
+      core: "bg-[linear-gradient(135deg,#c8a25a_0%,#a97f35_100%)]",
+      ring: "bg-[#c8a25a]/35",
+    },
   },
 };
 
@@ -161,6 +220,8 @@ function CompanyNode({
   company,
   selected,
   position,
+  theme,
+  nodeStyles,
   onNodeClick,
   onNodeDoubleClick,
   onNodePointerDown,
@@ -169,6 +230,8 @@ function CompanyNode({
   company: (typeof companies)[number];
   selected?: boolean;
   position: ProjectedPoint;
+  theme: AppTheme;
+  nodeStyles: Record<string, NodeStyle>;
   onNodeClick?: (companyId: string) => void;
   onNodeDoubleClick?: (companyId: string) => void;
   onNodePointerDown?: (companyId: string, event: React.PointerEvent<HTMLButtonElement>) => void;
@@ -179,6 +242,7 @@ function CompanyNode({
     core: "bg-slate-900",
     ring: "bg-slate-200/30",
   };
+  const selectedRingClass = theme === "sage" ? "ring-[#c8a25a]" : "ring-indigo-500";
   const initials = company.name
     .split(" ")
     .map((part) => part.charAt(0))
@@ -220,7 +284,7 @@ function CompanyNode({
             ? `h-28 w-28 lg:h-36 lg:w-36 ${nodeStyle.shell}`
             : `h-20 w-20 lg:h-28 lg:w-28 ${nodeStyle.shell}`
         }
-        ${selected ? "ring-2 ring-indigo-500 ring-offset-2 shadow-2xl" : ""}
+        ${selected ? `ring-2 ${selectedRingClass} ring-offset-2 shadow-2xl` : ""}
       `}
       style={{
         left: `${position.left}%`,
@@ -267,9 +331,33 @@ export default function NetworkMap({ selectedCompanyId, onSelectCompany, mapHref
   const [dragOffsets, setDragOffsets] = useState<Record<string, DragOffset>>({});
   const [showHint, setShowHint] = useState(true);
   const [isClientReady, setIsClientReady] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState<AppTheme>("classic");
 
   useEffect(() => {
     setIsClientReady(true);
+  }, []);
+
+  useEffect(() => {
+    const readTheme = () => {
+      const themeValue = document.documentElement.getAttribute("data-theme");
+      if (themeValue === "classic" || themeValue === "aurora" || themeValue === "sage") {
+        setCurrentTheme(themeValue);
+      } else {
+        setCurrentTheme("classic");
+      }
+    };
+
+    readTheme();
+
+    const observer = new MutationObserver(readTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -328,6 +416,14 @@ export default function NetworkMap({ selectedCompanyId, onSelectCompany, mapHref
 
     return map;
   }, [dragOffsets, isMobile, rotationDeg]);
+
+  const activeNodeStyles = nodeStylesByTheme[currentTheme] ?? nodeStylesByTheme.classic;
+  const ambientDotClass = currentTheme === "sage" ? "bg-[#c8a25a]" : "bg-indigo-300";
+  const connectorStroke = currentTheme === "sage" ? "#b79a63" : "#94a3b8";
+  const mapBackgroundClass =
+    currentTheme === "sage"
+      ? "bg-[radial-gradient(circle_at_50%_50%,#fbf7ef_0%,#f2e8d4_48%,#fffdf8_100%)]"
+      : "bg-[radial-gradient(circle_at_50%_50%,#f8fafc_0%,#eef2ff_48%,#ffffff_100%)]";
 
   const projectedAmbientDots = useMemo(
     () =>
@@ -460,7 +556,7 @@ export default function NetworkMap({ selectedCompanyId, onSelectCompany, mapHref
         Reset Layout
       </button>
 
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#f8fafc_0%,#eef2ff_48%,#ffffff_100%)]" />
+      <div className={`absolute inset-0 ${mapBackgroundClass}`} />
       <div className="absolute left-1/2 top-1/2 h-[68%] w-[82%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-200/70" />
       <div className="absolute left-1/2 top-1/2 h-[68%] w-[82%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-200/40" style={{ transform: "translate(-50%, -50%) rotate(28deg)" }} />
       <div className="absolute left-1/2 top-1/2 h-[68%] w-[82%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-200/40" style={{ transform: "translate(-50%, -50%) rotate(-28deg)" }} />
@@ -470,7 +566,7 @@ export default function NetworkMap({ selectedCompanyId, onSelectCompany, mapHref
           projectedAmbientDots.map((dot, index) => (
             <span
               key={`dot-${index}`}
-              className="pointer-events-none absolute h-1.5 w-1.5 rounded-full bg-indigo-300"
+              className={`pointer-events-none absolute h-1.5 w-1.5 rounded-full ${ambientDotClass}`}
               style={{
                 left: `${dot.left}%`,
                 top: `${dot.top}%`,
@@ -496,7 +592,7 @@ export default function NetworkMap({ selectedCompanyId, onSelectCompany, mapHref
                 y1={`${a.top}%`}
                 x2={`${b.left}%`}
                 y2={`${b.top}%`}
-                stroke="#94a3b8"
+                stroke={connectorStroke}
                 strokeWidth="1.5"
                 strokeDasharray="5 8"
                 opacity={0.25 + ((a.depth + b.depth) / 2) * 0.55}
@@ -511,6 +607,8 @@ export default function NetworkMap({ selectedCompanyId, onSelectCompany, mapHref
             company={company}
             selected={selectedCompanyId === company.id}
             position={positions[company.id]}
+            theme={currentTheme}
+            nodeStyles={activeNodeStyles}
             onNodeClick={handleNodeClick}
             onNodeDoubleClick={handleNodeDoubleClick}
             onNodePointerDown={handleNodePointerDown}
