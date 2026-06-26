@@ -177,7 +177,6 @@ const nodeStylesByTheme: Record<AppTheme, Record<string, NodeStyle>> = {
     },
   },
 };
-};
 
 const ambientDots = Array.from({ length: 28 }, (_, index) => {
   const lat = -65 + ((index * 23) % 130);
