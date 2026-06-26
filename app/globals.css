@@ -60,6 +60,14 @@ body {
   display: inline-block !important;
 }
 
+[data-theme="graham-signature"] .theme-logo-default {
+  display: none !important;
+}
+
+[data-theme="graham-signature"] .theme-logo-sage {
+  display: inline-block !important;
+}
+
 /* Sage theme layer: earthy dark green, warm tan, and cream palette */
 [data-theme="sage"] {
   --background: #f6f1e6;
@@ -365,6 +373,111 @@ body {
 
 /* Graham content background: warm neutral instead of cool gray-blue */
 [data-theme="graham"] main[class*="bg-[#f3f5fb]"] {
+  background-color: #ece6db !important;
+}
+
+/* Graham Signature: dedicated preset matching Graham mood as standalone option */
+[data-theme="graham-signature"] {
+  --background: #e8e3d8;
+  --foreground: #2d2620;
+}
+
+[data-theme="graham-signature"] .bg-white {
+  background-color: #f5f0e8 !important;
+}
+
+[data-theme="graham-signature"] .bg-slate-50,
+[data-theme="graham-signature"] .bg-slate-50\/80 {
+  background-color: #e8e3d8 !important;
+}
+
+[data-theme="graham-signature"] .bg-slate-900,
+[data-theme="graham-signature"] .bg-slate-950 {
+  background-color: #3d5f4a !important;
+}
+
+[data-theme="graham-signature"] .text-slate-950,
+[data-theme="graham-signature"] .text-slate-900 {
+  color: #2d2620 !important;
+}
+
+[data-theme="graham-signature"] .text-slate-700 {
+  color: #4a6b58 !important;
+}
+
+[data-theme="graham-signature"] .text-slate-600,
+[data-theme="graham-signature"] .text-slate-500 {
+  color: #6b8f71 !important;
+}
+
+[data-theme="graham-signature"] .border-slate-200,
+[data-theme="graham-signature"] .border-slate-100 {
+  border-color: #d5cec2 !important;
+}
+
+[data-theme="graham-signature"] .focus\:border-violet-500:focus,
+[data-theme="graham-signature"] .focus\:border-indigo-300:focus {
+  border-color: #6b8f71 !important;
+}
+
+[data-theme="graham-signature"] .text-indigo-600,
+[data-theme="graham-signature"] .text-violet-600,
+[data-theme="graham-signature"] .text-violet-700,
+[data-theme="graham-signature"] .text-indigo-500 {
+  color: #6b8f71 !important;
+}
+
+[data-theme="graham-signature"] .border-indigo-200,
+[data-theme="graham-signature"] .border-indigo-300,
+[data-theme="graham-signature"] .border-violet-300 {
+  border-color: #c5d4ca !important;
+}
+
+[data-theme="graham-signature"] .border-sky-300,
+[data-theme="graham-signature"] .bg-sky-200 {
+  border-color: #6b8f71 !important;
+  background-color: #e0ebe4 !important;
+}
+
+[data-theme="graham-signature"] .bg-indigo-50,
+[data-theme="graham-signature"] .bg-indigo-500 {
+  background-color: #e0ebe4 !important;
+}
+
+[data-theme="graham-signature"] .bg-indigo-600 {
+  background-color: #6b8f71 !important;
+  color: #f5f0e8 !important;
+}
+
+[data-theme="graham-signature"] .text-emerald-600,
+[data-theme="graham-signature"] .text-emerald-700,
+[data-theme="graham-signature"] .text-emerald-800 {
+  color: #5a7f67 !important;
+}
+
+[data-theme="graham-signature"] .bg-emerald-50,
+[data-theme="graham-signature"] .bg-emerald-500 {
+  background-color: #e0ebe4 !important;
+}
+
+[data-theme="graham-signature"] .border-emerald-200 {
+  border-color: #c5d4ca !important;
+}
+
+[data-theme="graham-signature"] .text-rose-600 {
+  color: #b85e5e !important;
+}
+
+[data-theme="graham-signature"] .hover\:bg-slate-100:hover,
+[data-theme="graham-signature"] .hover\:bg-slate-800:hover {
+  background-color: #ddd7cc !important;
+}
+
+[data-theme="graham-signature"] .bg-slate-900 {
+  color: #f5f0e8 !important;
+}
+
+[data-theme="graham-signature"] main[class*="bg-[#f3f5fb]"] {
   background-color: #ece6db !important;
 }
 
