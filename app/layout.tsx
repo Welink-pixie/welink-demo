@@ -22,7 +22,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const validThemes = ["classic", "sage", "forest"];
+  const validThemes = ["classic", "sage", "forest", "graham"];
   const appTheme = validThemes.includes(process.env.NEXT_PUBLIC_APP_THEME ?? "")
     ? (process.env.NEXT_PUBLIC_APP_THEME as string)
     : "classic";
