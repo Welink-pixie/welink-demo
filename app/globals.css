@@ -11,8 +11,8 @@
 }
 
 [data-theme="forest"] {
-  --background: #eef5ef;
-  --foreground: #10382c;
+  --background: #1b3d2a;
+  --foreground: #f4f8b8;
 }
 
 @theme inline {
