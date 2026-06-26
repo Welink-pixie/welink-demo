@@ -20,7 +20,9 @@ export default async function DashboardLayout({
     <main className="dashboard-main-shell min-h-screen bg-[#f3f5fb] p-3 lg:p-4">
       <div className="dashboard-frame mx-auto max-w-[1500px] rounded-3xl border border-slate-200/70 bg-white shadow-sm">
         <div className="grid min-h-[92vh] grid-cols-1 lg:grid-cols-[252px_1fr]">
-          <DashboardSidebar username={usernameCookie?.value ?? "User"} />
+          <div className="dashboard-left-encase">
+            <DashboardSidebar username={usernameCookie?.value ?? "User"} />
+          </div>
           <div className="animate-fade-in-scale">{children}</div>
         </div>
       </div>
