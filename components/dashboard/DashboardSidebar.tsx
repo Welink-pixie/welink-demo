@@ -137,8 +137,8 @@ export default function DashboardSidebar({ username }: { username: string }) {
     <aside className="dashboard-sidebar-shell border-b border-slate-200 p-4 lg:border-b-0 lg:border-r lg:bg-white lg:p-5">
       <div className="mb-8 flex items-center justify-center">
         <ThemeLogo
-          className="h-24 w-auto object-contain"
-          sageClassName="h-28 w-auto object-contain"
+          className="h-28 w-auto object-contain opacity-80"
+          sageClassName="h-32 w-auto object-contain opacity-80"
           disableKnightShadow
         />
       </div>
