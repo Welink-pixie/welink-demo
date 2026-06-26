@@ -5,7 +5,7 @@ import ThemeLogo from "@/components/ui/ThemeLogo";
 
 export default function LoginHero() {
   return (
-    <section className="hidden lg:flex flex-col bg-gradient-to-br from-slate-50 to-white p-12">
+    <section className="login-hero-panel hidden lg:flex flex-col bg-gradient-to-br from-slate-50 to-white p-12">
 
       <div className="space-y-10">
 

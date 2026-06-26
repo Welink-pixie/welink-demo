@@ -270,6 +270,38 @@ body {
   background-color: #1f4d36 !important;
 }
 
+/* Forest desktop login hero: human-centric readability on the left panel only */
+[data-theme="forest"] .login-hero-panel {
+  background: linear-gradient(145deg, #eef3ec 0%, #e2ebe3 56%, #dde8df 100%) !important;
+}
+
+[data-theme="forest"] .login-hero-panel .text-slate-950,
+[data-theme="forest"] .login-hero-panel .text-slate-900 {
+  color: #133a2b !important;
+}
+
+[data-theme="forest"] .login-hero-panel .text-slate-700 {
+  color: #24513f !important;
+}
+
+[data-theme="forest"] .login-hero-panel .text-slate-600,
+[data-theme="forest"] .login-hero-panel .text-slate-500 {
+  color: #3f6b58 !important;
+}
+
+[data-theme="forest"] .login-hero-panel .bg-white {
+  background-color: #f6f9f3 !important;
+}
+
+[data-theme="forest"] .login-hero-panel .border-slate-200,
+[data-theme="forest"] .login-hero-panel .border-slate-100 {
+  border-color: #bfd1c2 !important;
+}
+
+[data-theme="forest"] .login-hero-panel .shadow-xl {
+  box-shadow: 0 16px 32px rgba(18, 63, 44, 0.14) !important;
+}
+
 /* Graham theme layer: warm earthy palette with soft greens */
 [data-theme="graham"] {
   --background: #e8e3d8;
