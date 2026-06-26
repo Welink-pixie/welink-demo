@@ -307,13 +307,18 @@ export default function DashboardPage() {
                     <div className="space-y-3">
                       {timelineItems.map((item) => (
                         <article key={item} className="flex items-center gap-3">
-                          <div className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                          <span className="timeline-arrow flex h-4 w-4 items-center justify-center text-emerald-600" aria-hidden="true">
+                            <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4" stroke="currentColor" strokeWidth="1.7">
+                              <path d="M8 2.5v9" strokeLinecap="round" />
+                              <path d="M5.2 8.8L8 11.6l2.8-2.8" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          </span>
                           <p className="text-sm text-slate-700">{item}</p>
                         </article>
                       ))}
                     </div>
 
-                    <div className="mt-5 rounded-xl border border-emerald-200 bg-emerald-50 p-3">
+                    <div className="overview-revenue-card mt-5 rounded-xl border border-emerald-200 bg-emerald-50 p-3">
                       <p className="text-xs text-emerald-800">Revenue Generated</p>
                       <p className="text-2xl font-semibold text-emerald-700">$250,000</p>
                       <p className="text-xs text-emerald-700/80">July 15, 2024</p>

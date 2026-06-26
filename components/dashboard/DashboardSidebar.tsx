@@ -136,11 +136,13 @@ export default function DashboardSidebar({ username }: { username: string }) {
   return (
     <aside className="dashboard-sidebar-shell border-b border-slate-200 p-4 lg:border-b-0 lg:border-r lg:bg-white lg:p-5">
       <div className="mb-8 flex items-center justify-center">
-        <ThemeLogo
-          className="h-28 w-auto object-contain opacity-80"
-          sageClassName="h-32 w-auto object-contain opacity-80"
-          disableKnightShadow
-        />
+        <div className="sidebar-logo-wrap flex items-center justify-center rounded-2xl border border-slate-200/80 bg-white/80 px-5 py-4">
+          <ThemeLogo
+            className="h-28 w-auto object-contain opacity-80"
+            sageClassName="h-32 w-auto object-contain opacity-80"
+            disableKnightShadow
+          />
+        </div>
       </div>
 
       <nav className="mb-auto grid grid-cols-3 gap-1.5 sm:grid-cols-5 lg:flex lg:flex-col lg:gap-2">

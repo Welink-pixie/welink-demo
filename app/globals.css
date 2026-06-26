@@ -281,6 +281,11 @@ body {
   border-right-color: #bfd1c2 !important;
 }
 
+[data-theme="forest"] .dashboard-sidebar-shell .sidebar-logo-wrap {
+  background-color: #e6f1e8 !important;
+  border-color: #b7ccb9 !important;
+}
+
 [data-theme="forest"] .dashboard-sidebar-shell .nav-item-active {
   background-color: #eff5ef !important;
   color: #123a2b !important;
@@ -385,6 +390,17 @@ body {
 [data-theme="forest"] .dashboard-overview-page .text-emerald-700,
 [data-theme="forest"] .dashboard-overview-page .text-emerald-800 {
   color: #1f6d47 !important;
+}
+
+[data-theme="forest"] .dashboard-overview-page .overview-revenue-card {
+  background-color: #1d5b3e !important;
+  border-color: #2a6f50 !important;
+}
+
+[data-theme="forest"] .dashboard-overview-page .overview-revenue-card .text-emerald-800,
+[data-theme="forest"] .dashboard-overview-page .overview-revenue-card .text-emerald-700,
+[data-theme="forest"] .dashboard-overview-page .overview-revenue-card .text-emerald-700\/80 {
+  color: #dff4e4 !important;
 }
 
 /* Forest dark mode main content background */
