@@ -467,6 +467,31 @@ body {
   box-shadow: 0 16px 32px rgba(18, 63, 44, 0.14) !important;
 }
 
+/* Forest mobile sign-in alignment: mirror desktop right-panel feel on iOS */
+@media (max-width: 1023px) {
+  [data-theme="forest"] .login-form-panel {
+    min-height: 100vh;
+    padding: 24px 16px;
+    background: linear-gradient(150deg, #123724 0%, #1f4d36 54%, #0f2818 100%) !important;
+  }
+
+  [data-theme="forest"] .login-form-panel .login-form-card {
+    background-color: #2a5a42 !important;
+    border-color: #3d6a52 !important;
+    box-shadow: 0 16px 32px rgba(12, 40, 24, 0.32) !important;
+  }
+
+  [data-theme="forest"] .login-form-panel .login-form-card input {
+    background-color: #dfe5ef !important;
+    border-color: #c4cfdd !important;
+    color: #0f2818 !important;
+  }
+
+  [data-theme="forest"] .login-form-panel .login-form-card input::placeholder {
+    color: #5e6e84 !important;
+  }
+}
+
 /* Graham theme layer: warm earthy palette with soft greens */
 [data-theme="graham"] {
   --background: #e8e3d8;

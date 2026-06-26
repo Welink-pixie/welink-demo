@@ -55,8 +55,8 @@ export default function LoginForm() {
   };
 
   return (
-    <section className="flex items-center justify-center p-6">
-      <div className="w-full max-w-md rounded-[32px] border border-slate-200 bg-white p-8 shadow-xl">
+    <section className="login-form-panel flex items-center justify-center p-6">
+      <div className="login-form-card w-full max-w-md rounded-[32px] border border-slate-200 bg-white p-8 shadow-xl">
 
         {/* Logo */}
 
