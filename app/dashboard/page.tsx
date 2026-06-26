@@ -111,7 +111,7 @@ export default function DashboardPage() {
                   placeholder="Search companies, people, industries..."
                   className="w-full min-w-0 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm outline-none focus:border-indigo-300 sm:w-80"
                 />
-                <button className="rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white">
+                <button className="overview-primary-btn rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white">
                   Add Contact
                 </button>
               </div>
@@ -188,7 +188,7 @@ export default function DashboardPage() {
                           <p className="text-xs text-slate-500">Key stakeholder</p>
                         </div>
                       </div>
-                      <button className="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-700 hover:bg-slate-50">
+                      <button className="overview-ghost-btn rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-700 hover:bg-slate-50">
                         Message
                       </button>
                     </div>
@@ -196,10 +196,10 @@ export default function DashboardPage() {
                 </div>
 
                 <div className="mt-6 grid grid-cols-2 gap-2">
-                  <button className="rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700">
+                  <button className="overview-secondary-btn rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700">
                     Save
                   </button>
-                  <button className="rounded-xl bg-slate-900 px-3 py-2 text-sm font-medium text-white">
+                  <button className="overview-primary-btn rounded-xl bg-slate-900 px-3 py-2 text-sm font-medium text-white">
                     Connect
                   </button>
                 </div>

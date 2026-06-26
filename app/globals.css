@@ -322,6 +322,36 @@ body {
   color: #f2f8ee !important;
 }
 
+[data-theme="forest"] .dashboard-overview-page .overview-primary-btn {
+  background-color: #f2f7ee !important;
+  color: #123a2b !important;
+  border: 1px solid #bfd1c2 !important;
+}
+
+[data-theme="forest"] .dashboard-overview-page .overview-primary-btn:hover {
+  background-color: #e8f0e7 !important;
+}
+
+[data-theme="forest"] .dashboard-overview-page .overview-secondary-btn {
+  background-color: #123a2b !important;
+  color: #f2f8ee !important;
+  border-color: #123a2b !important;
+}
+
+[data-theme="forest"] .dashboard-overview-page .overview-secondary-btn:hover {
+  background-color: #0f3124 !important;
+}
+
+[data-theme="forest"] .dashboard-overview-page .overview-ghost-btn {
+  background-color: #f7faf5 !important;
+  color: #214f3d !important;
+  border-color: #bfd1c2 !important;
+}
+
+[data-theme="forest"] .dashboard-overview-page .overview-ghost-btn:hover {
+  background-color: #edf4ec !important;
+}
+
 [data-theme="forest"] .dashboard-overview-page .text-emerald-600,
 [data-theme="forest"] .dashboard-overview-page .text-emerald-700,
 [data-theme="forest"] .dashboard-overview-page .text-emerald-800 {
