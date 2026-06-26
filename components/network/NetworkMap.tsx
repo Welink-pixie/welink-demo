@@ -19,7 +19,7 @@ type NetworkMapProps = {
   mapHref?: string;
 };
 
-type AppTheme = "classic" | "aurora" | "sage";
+type AppTheme = "classic" | "sage" | "forest";
 
 type NodeStyle = {
   shell: string;
@@ -92,34 +92,6 @@ const nodeStylesByTheme: Record<AppTheme, Record<string, NodeStyle>> = {
       ring: "bg-amber-200/40",
     },
   },
-  aurora: {
-    demacco: {
-      shell:
-        "border-sky-300/90 bg-[linear-gradient(140deg,#eff6ff_0%,#dbeafe_28%,#ffffff_55%,#bfdbfe_78%,#eff6ff_100%)] bg-[length:220%_220%] shadow-sky-200/80 animate-superconnector-shimmer",
-      core: "bg-[linear-gradient(120deg,#0ea5e9_0%,#2563eb_42%,#60a5fa_72%,#0ea5e9_100%)] bg-[length:220%_220%] animate-superconnector-shimmer",
-      ring: "bg-sky-300/30",
-    },
-    northline: {
-      shell: "border-cyan-200/90 bg-[linear-gradient(150deg,#ecfeff_0%,#cffafe_45%,#f8fafc_100%)] shadow-cyan-100/80",
-      core: "bg-[linear-gradient(135deg,#06b6d4_0%,#0891b2_100%)]",
-      ring: "bg-cyan-200/40",
-    },
-    healthfirst: {
-      shell: "border-emerald-200/90 bg-[linear-gradient(150deg,#ecfdf5_0%,#d1fae5_45%,#f8fafc_100%)] shadow-emerald-100/80",
-      core: "bg-[linear-gradient(135deg,#10b981_0%,#059669_100%)]",
-      ring: "bg-emerald-200/40",
-    },
-    futureflow: {
-      shell: "border-violet-200/90 bg-[linear-gradient(150deg,#f5f3ff_0%,#ede9fe_45%,#f8fafc_100%)] shadow-violet-100/80",
-      core: "bg-[linear-gradient(135deg,#8b5cf6_0%,#7c3aed_100%)]",
-      ring: "bg-violet-200/40",
-    },
-    vertex: {
-      shell: "border-amber-200/90 bg-[linear-gradient(150deg,#fffbeb_0%,#fef3c7_45%,#f8fafc_100%)] shadow-amber-100/80",
-      core: "bg-[linear-gradient(135deg,#f59e0b_0%,#d97706_100%)]",
-      ring: "bg-amber-200/40",
-    },
-  },
   sage: {
     demacco: {
       shell:
@@ -146,6 +118,34 @@ const nodeStylesByTheme: Record<AppTheme, Record<string, NodeStyle>> = {
       shell: "border-[#e3d2a6] bg-[linear-gradient(150deg,#fcf6ea_0%,#f2e4c6_45%,#fbf8f0_100%)] shadow-[#e3d2a6]/55",
       core: "bg-[linear-gradient(135deg,#c8a25a_0%,#a97f35_100%)]",
       ring: "bg-[#c8a25a]/35",
+    },
+  },
+  forest: {
+    demacco: {
+      shell:
+        "border-[#6c9a79]/80 bg-[linear-gradient(145deg,#edf7ef_0%,#d5ebda_34%,#f7fcf8_66%,#c4dfcb_100%)] bg-[length:220%_220%] shadow-[#7da989]/40 animate-superconnector-shimmer",
+      core: "bg-[linear-gradient(120deg,#2f6f55_0%,#275e49_42%,#4f8f73_74%,#2f6f55_100%)] bg-[length:220%_220%] animate-superconnector-shimmer",
+      ring: "bg-[#5f9278]/30",
+    },
+    northline: {
+      shell: "border-[#c7ddcd] bg-[linear-gradient(150deg,#f2faf3_0%,#dbeee0_45%,#f9fdf9_100%)] shadow-[#c7ddcd]/60",
+      core: "bg-[linear-gradient(135deg,#2f6f55_0%,#23533f_100%)]",
+      ring: "bg-[#4d8168]/30",
+    },
+    healthfirst: {
+      shell: "border-[#b8d7bf] bg-[linear-gradient(150deg,#eff8f1_0%,#d7ebdc_45%,#f9fcf9_100%)] shadow-[#b8d7bf]/60",
+      core: "bg-[linear-gradient(135deg,#1f7a4e_0%,#19633f_100%)]",
+      ring: "bg-[#1f7a4e]/30",
+    },
+    futureflow: {
+      shell: "border-[#cedbd1] bg-[linear-gradient(150deg,#f1f7f3_0%,#e0ece3_45%,#fafcfb_100%)] shadow-[#c9dccf]/60",
+      core: "bg-[linear-gradient(135deg,#527966_0%,#3f6252_100%)]",
+      ring: "bg-[#527966]/28",
+    },
+    vertex: {
+      shell: "border-[#8fb39b] bg-[linear-gradient(150deg,#f1f8f3_0%,#dcece1_45%,#f9fcfa_100%)] shadow-[#9fc4af]/55",
+      core: "bg-[linear-gradient(135deg,#3f7f62_0%,#2f6f55_100%)]",
+      ring: "bg-[#3f7f62]/35",
     },
   },
 };
@@ -340,7 +340,7 @@ export default function NetworkMap({ selectedCompanyId, onSelectCompany, mapHref
   useEffect(() => {
     const readTheme = () => {
       const themeValue = document.documentElement.getAttribute("data-theme");
-      if (themeValue === "classic" || themeValue === "aurora" || themeValue === "sage") {
+      if (themeValue === "classic" || themeValue === "sage" || themeValue === "forest") {
         setCurrentTheme(themeValue);
       } else {
         setCurrentTheme("classic");
@@ -418,12 +418,15 @@ export default function NetworkMap({ selectedCompanyId, onSelectCompany, mapHref
   }, [dragOffsets, isMobile, rotationDeg]);
 
   const activeNodeStyles = nodeStylesByTheme[currentTheme] ?? nodeStylesByTheme.classic;
-  const ambientDotClass = currentTheme === "sage" ? "bg-[#c8a25a]" : "bg-indigo-300";
-  const connectorStroke = currentTheme === "sage" ? "#b79a63" : "#94a3b8";
+  const ambientDotClass =
+    currentTheme === "sage" ? "bg-[#c8a25a]" : currentTheme === "forest" ? "bg-[#3f7f62]" : "bg-indigo-300";
+  const connectorStroke = currentTheme === "sage" ? "#b79a63" : currentTheme === "forest" ? "#5f9278" : "#94a3b8";
   const mapBackgroundClass =
     currentTheme === "sage"
       ? "bg-[radial-gradient(circle_at_50%_50%,#fbf7ef_0%,#f2e8d4_48%,#fffdf8_100%)]"
-      : "bg-[radial-gradient(circle_at_50%_50%,#f8fafc_0%,#eef2ff_48%,#ffffff_100%)]";
+      : currentTheme === "forest"
+        ? "bg-[radial-gradient(circle_at_50%_50%,#f5fbf6_0%,#e1efe5_48%,#f9fdfa_100%)]"
+        : "bg-[radial-gradient(circle_at_50%_50%,#f8fafc_0%,#eef2ff_48%,#ffffff_100%)]";
 
   const projectedAmbientDots = useMemo(
     () =>

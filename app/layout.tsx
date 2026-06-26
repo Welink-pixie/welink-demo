@@ -22,7 +22,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const validThemes = ["classic", "aurora", "sage"];
+  const validThemes = ["classic", "sage", "forest"];
   const appTheme = validThemes.includes(process.env.NEXT_PUBLIC_APP_THEME ?? "")
     ? (process.env.NEXT_PUBLIC_APP_THEME as string)
     : "classic";
@@ -40,7 +40,7 @@ export default function RootLayout({
             __html: `
               (function() {
                 const storedTheme = localStorage.getItem('app-theme');
-                if (storedTheme && ['classic', 'aurora', 'sage'].includes(storedTheme)) {
+                if (storedTheme && ['classic', 'sage', 'forest'].includes(storedTheme)) {
                   document.documentElement.setAttribute('data-theme', storedTheme);
                 }
               })();

@@ -19,7 +19,7 @@ export default function LoginForm() {
     setCurrentTheme(stored);
   }, []);
 
-  const switchTheme = (theme: "classic" | "aurora" | "sage") => {
+  const switchTheme = (theme: "classic" | "sage" | "forest") => {
     localStorage.setItem("app-theme", theme);
     document.documentElement.setAttribute("data-theme", theme);
     setCurrentTheme(theme);
@@ -183,7 +183,7 @@ export default function LoginForm() {
           <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide text-center mb-4">
             Demo Theme
           </p>
-          <div className="flex gap-2">
+          <div className="grid grid-cols-3 gap-2">
             <button
               onClick={() => switchTheme("classic")}
               className={`flex-1 px-3 py-2 rounded-lg text-xs font-semibold transition ${
@@ -195,16 +195,6 @@ export default function LoginForm() {
               Classic
             </button>
             <button
-              onClick={() => switchTheme("aurora")}
-              className={`flex-1 px-3 py-2 rounded-lg text-xs font-semibold transition ${
-                currentTheme === "aurora"
-                  ? "bg-blue-600 text-white"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-              }`}
-            >
-              Aurora
-            </button>
-            <button
               onClick={() => switchTheme("sage")}
               className={`flex-1 px-3 py-2 rounded-lg text-xs font-semibold transition ${
                 currentTheme === "sage"
@@ -213,6 +203,16 @@ export default function LoginForm() {
               }`}
             >
               Sage
+            </button>
+            <button
+              onClick={() => switchTheme("forest")}
+              className={`flex-1 px-3 py-2 rounded-lg text-xs font-semibold transition ${
+                currentTheme === "forest"
+                  ? "bg-emerald-700 text-white"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+              }`}
+            >
+              Forest
             </button>
           </div>
         </div>

@@ -137,8 +137,8 @@ export default function DashboardSidebar({ username }: { username: string }) {
     <aside className="border-b border-slate-200 p-4 lg:border-b-0 lg:border-r lg:bg-white lg:p-5">
       <div className="mb-8 flex items-center justify-center">
         <ThemeLogo
-          className="h-14 w-auto object-contain"
-          sageClassName="h-20 w-auto object-contain"
+          className="h-24 w-auto object-contain"
+          sageClassName="h-36 w-auto object-contain"
         />
       </div>
 
