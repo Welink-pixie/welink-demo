@@ -22,11 +22,32 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const validThemes = ["classic", "aurora", "sage"];
+  const appTheme = validThemes.includes(process.env.NEXT_PUBLIC_APP_THEME ?? "")
+    ? (process.env.NEXT_PUBLIC_APP_THEME as string)
+    : "classic";
+
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      data-theme={appTheme}
+      suppressHydrationWarning
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const storedTheme = localStorage.getItem('app-theme');
+                if (storedTheme && ['classic', 'aurora', 'sage'].includes(storedTheme)) {
+                  document.documentElement.setAttribute('data-theme', storedTheme);
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

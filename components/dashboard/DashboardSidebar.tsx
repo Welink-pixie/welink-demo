@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const navItems = [
   { label: "Home", icon: "🏠", href: "/dashboard" },
@@ -15,14 +16,21 @@ const navItems = [
   { label: "Saved", icon: "⭐", href: "/dashboard/saved" },
 ];
 
-export default function DashboardSidebar() {
+export default function DashboardSidebar({ username }: { username: string }) {
   const pathname = usePathname();
+  const router = useRouter();
 
   const isActive = (href: string) => {
     if (href === "/dashboard") {
       return pathname === "/dashboard";
     }
     return pathname.startsWith(href);
+  };
+
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", { method: "POST" });
+    router.replace("/");
+    router.refresh();
   };
 
   return (
@@ -53,9 +61,18 @@ export default function DashboardSidebar() {
         ))}
       </nav>
 
-      <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-3 text-center">
-        <p className="text-xs font-semibold text-slate-900">Selena Gutierrez</p>
+      <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-3">
+        <p className="text-xs font-semibold text-slate-900">{username}</p>
         <p className="text-[11px] text-slate-500">Business Development</p>
+        <div className="mt-3 flex justify-end">
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100"
+          >
+            Log Out
+          </button>
+        </div>
       </div>
     </aside>
   );

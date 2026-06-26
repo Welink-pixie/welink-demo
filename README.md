@@ -85,6 +85,26 @@ The fastest path is deploying with Vercel:
 2. Accept the default Next.js build settings.
 3. Deploy.
 
+### Theme Layer Deployment (Two Colorways)
+
+This project supports deploy-time theming using `NEXT_PUBLIC_APP_THEME`:
+
+- `classic` (default)
+- `aurora` (alternate blue/cyan colorway)
+
+To deploy an alternate themed version with the same feature set:
+
+1. Create or reuse a second Vercel project connected to this same repository.
+2. In that second project, set environment variable:
+	- `NEXT_PUBLIC_APP_THEME=aurora`
+3. Deploy.
+
+Keep the primary project on:
+
+- `NEXT_PUBLIC_APP_THEME=classic`
+
+This produces two URLs with identical behavior and different visual themes.
+
 ### Manual Production Build
 
 To verify the app locally in production mode:

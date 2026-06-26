@@ -209,6 +209,13 @@ export default function ExperimentalDashboardPage() {
           ← Back to Dashboard
         </Link>
 
+        <Link
+          href="/dashboard/experimental-sphere"
+          className="absolute right-44 top-0 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50"
+        >
+          Sphere Grid →
+        </Link>
+
         <div className="relative h-[760px] w-full">
           <svg className="pointer-events-none absolute inset-0 h-full w-full overflow-visible">
             <line x1="47%" y1="40%" x2="31%" y2="21%" stroke="#d1d5db" strokeWidth="1" />

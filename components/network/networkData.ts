@@ -10,6 +10,8 @@ export type Company = {
   summary: string;
   x: string;
   y: string;
+  mobileX?: string;
+  mobileY?: string;
   featured?: boolean;
 };
 
@@ -27,6 +29,8 @@ export const companies: Company[] = [
       "Mid-market advisor focused on growth strategy, operational clarity, and strategic partnerships.",
     x: "52%",
     y: "46%",
+    mobileX: "50%",
+    mobileY: "44%",
     featured: true,
   },
   {
@@ -42,6 +46,8 @@ export const companies: Company[] = [
       "Technology consulting team with a strong services motion and active strategic partner program.",
     x: "24%",
     y: "18%",
+    mobileX: "26%",
+    mobileY: "16%",
   },
   {
     id: "healthfirst",
@@ -56,6 +62,8 @@ export const companies: Company[] = [
       "Healthcare group expanding its referral network and looking for trusted operator introductions.",
     x: "78%",
     y: "18%",
+    mobileX: "74%",
+    mobileY: "16%",
   },
   {
     id: "futureflow",
@@ -70,6 +78,8 @@ export const companies: Company[] = [
       "Logistics platform with a growing network of enterprise partners and regional operators.",
     x: "22%",
     y: "84%",
+    mobileX: "28%",
+    mobileY: "78%",
   },
   {
     id: "vertex",
@@ -84,5 +94,7 @@ export const companies: Company[] = [
       "Investment firm looking for higher-quality operator relationships and founder introductions.",
     x: "79%",
     y: "84%",
+    mobileX: "72%",
+    mobileY: "78%",
   },
 ];
