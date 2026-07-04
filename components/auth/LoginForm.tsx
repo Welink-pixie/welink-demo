@@ -2,6 +2,7 @@
 
 // components/auth/LoginForm.tsx
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import ThemeLogo from "@/components/ui/ThemeLogo";
@@ -173,9 +174,9 @@ export default function LoginForm() {
             New to WeLink?
           </p>
 
-          <button className="mt-2 font-semibold text-violet-600 hover:text-violet-700">
-            Request Access
-          </button>
+          <Link href="/onboarding" className="mt-2 inline-block font-semibold text-violet-600 hover:text-violet-700">
+            Sign Up
+          </Link>
         </div>
 
         {/* Theme Toggle */}

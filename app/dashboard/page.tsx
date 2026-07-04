@@ -97,25 +97,46 @@ export default function DashboardPage() {
 
   return (
         <section className="dashboard-overview-page p-4 lg:p-5">
-          <div className="overview-left-hero mb-4 flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/80 p-3 lg:flex-row lg:items-center lg:justify-between lg:p-4">
-              <div>
-                <h1 className="text-2xl font-semibold tracking-tight text-slate-950">
-                  Good morning, {isProfileLoading ? "..." : username}
-                </h1>
-                <p className="text-sm text-slate-500">Here is your network overview</p>
-              </div>
+          <div className="overview-left-hero mb-4 flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 lg:px-4">
+            <p className="text-sm font-medium text-slate-600">
+              {isProfileLoading ? "Loading profile..." : `Welcome, ${username}`}
+            </p>
 
-              <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+            <div className="flex w-full items-center gap-2 sm:w-auto">
+              <div className="relative flex-1 sm:w-64 sm:flex-none">
                 <input
                   type="text"
-                  placeholder="Search companies, people, industries..."
-                  className="w-full min-w-0 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm outline-none focus:border-indigo-300 sm:w-80"
+                  placeholder="Search"
+                  className="w-full rounded-full border border-slate-200 bg-white px-4 py-2 text-sm outline-none transition focus:border-indigo-300"
                 />
-                <button className="overview-primary-btn rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white">
-                  Add Contact
-                </button>
               </div>
+
+              <button
+                type="button"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 hover:bg-slate-100 hover:text-slate-700"
+                aria-label="Filter"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
+                  <path d="M4 6h16M7 12h10M10 18h4" strokeLinecap="round" />
+                </svg>
+              </button>
+
+              <button
+                type="button"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 hover:bg-slate-100 hover:text-slate-700"
+                aria-label="Notifications"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
+                  <path d="M15 17H5.5a1 1 0 01-.8-1.6L6 13.7V10a6 6 0 1112 0v3.7l1.3 1.7a1 1 0 01-.8 1.6H18" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M10 19a2 2 0 004 0" strokeLinecap="round" />
+                </svg>
+              </button>
+
+              <button className="overview-primary-btn rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white">
+                Add
+              </button>
             </div>
+          </div>
 
             <div className="overview-main-grid grid gap-4 xl:grid-cols-[1.8fr_1fr]">
               <div className="overview-left-map overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 p-2">

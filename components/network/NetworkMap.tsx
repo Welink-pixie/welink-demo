@@ -221,6 +221,23 @@ function clamp(value: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, value));
 }
 
+const fitScoresDescending = [...new Set(companies.map((company) => company.fitScore))].sort((a, b) => b - a);
+
+const fitScoreBounds = companies.reduce(
+  (bounds, company) => ({
+    min: Math.min(bounds.min, company.fitScore),
+    max: Math.max(bounds.max, company.fitScore),
+  }),
+  { min: Number.POSITIVE_INFINITY, max: Number.NEGATIVE_INFINITY },
+);
+
+const secondHighestFitScore = fitScoresDescending[1] ?? fitScoreBounds.max;
+
+function fitScaleForScore(fitScore: number): number {
+  const span = Math.max(fitScoreBounds.max - fitScoreBounds.min, 1);
+  return clamp((fitScore - fitScoreBounds.min) / span, 0, 1);
+}
+
 function latLonToVec3(lat: number, lon: number): Vec3 {
   const latRad = toRadians(lat);
   const lonRad = toRadians(lon);
@@ -293,6 +310,19 @@ function CompanyNode({
   onNodePointerDown?: (companyId: string, event: React.PointerEvent<HTMLButtonElement>) => void;
   isDragging?: boolean;
 }) {
+  const fitScale = fitScaleForScore(company.fitScore);
+  const isTopFitScore = company.fitScore === fitScoreBounds.max;
+  const topFitBoost = isTopFitScore && secondHighestFitScore < fitScoreBounds.max ? 1.1 : 1;
+  const nodeSize = (80 + fitScale * 32) * topFitBoost;
+  const nodeSizeLg = (112 + fitScale * 32) * topFitBoost;
+  const coreSize = (36 + fitScale * 12) * topFitBoost;
+  const coreSizeLg = (44 + fitScale * 12) * topFitBoost;
+  const nodeSizeStyle = {
+    "--node-size": `${nodeSize}px`,
+    "--node-size-lg": `${nodeSizeLg}px`,
+    "--node-core-size": `${coreSize}px`,
+    "--node-core-size-lg": `${coreSizeLg}px`,
+  } as React.CSSProperties;
   const nodeStyle = nodeStyles[company.id] ?? {
     shell: "border-slate-200 bg-white shadow-slate-100",
     core: "bg-slate-900",
@@ -335,19 +365,20 @@ function CompanyNode({
         hover:shadow-2xl
         touch-none
         ${isDragging ? "cursor-grabbing" : "cursor-grab"}
-        ${
-          company.featured
-            ? `h-28 w-28 lg:h-36 lg:w-36 ${nodeStyle.shell}`
-            : `h-20 w-20 lg:h-28 lg:w-28 ${nodeStyle.shell}`
-        }
+        h-[var(--node-size)]
+        w-[var(--node-size)]
+        lg:h-[var(--node-size-lg)]
+        lg:w-[var(--node-size-lg)]
+        ${nodeStyle.shell}
         ${selected ? `ring-2 ${selectedRingClass} ring-offset-2 shadow-2xl` : ""}
       `}
       style={{
+        ...nodeSizeStyle,
         left: `${position.left}%`,
         top: `${position.top}%`,
         transform: `translate(-50%, -50%) scale(${position.scale})`,
         opacity: position.opacity,
-        zIndex: Math.round(position.depth * 40) + (company.featured ? 10 : 0),
+        zIndex: Math.round(position.depth * 40) + Math.round(fitScale * 10),
       }}
       aria-label={company.name}
     >
@@ -360,8 +391,11 @@ function CompanyNode({
         <div
           className={`
             flex items-center justify-center rounded-full text-sm font-bold text-white
-            ${selected && !company.featured ? "bg-indigo-600" : nodeStyle.core}
-            ${company.featured ? "h-12 w-12 lg:h-14 lg:w-14" : "h-9 w-9 lg:h-11 lg:w-11"}
+            ${selected && !isTopFitScore ? "bg-indigo-600" : nodeStyle.core}
+            h-[var(--node-core-size)]
+            w-[var(--node-core-size)]
+            lg:h-[var(--node-core-size-lg)]
+            lg:w-[var(--node-core-size-lg)]
           `}
         >
           {initials}

@@ -134,23 +134,21 @@ export default function DashboardSidebar({ username }: { username: string }) {
   };
 
   return (
-    <aside className="dashboard-sidebar-shell border-b border-slate-200 p-4 lg:border-b-0 lg:border-r lg:bg-white lg:p-5">
-      <div className="mb-8 flex items-center justify-center">
-        <div className="sidebar-logo-wrap flex items-center justify-center rounded-2xl border border-slate-200/80 bg-white/80 px-5 py-4">
-          <ThemeLogo
-            className="h-28 w-auto object-contain opacity-80"
-            sageClassName="h-32 w-auto object-contain opacity-80"
-            disableKnightShadow
-          />
-        </div>
+    <aside className="dashboard-sidebar-shell flex min-h-0 flex-col border-b border-slate-200 p-4 sm:min-h-[calc(100dvh-1.5rem)] sm:border-b-0 sm:border-r sm:bg-white sm:p-5 lg:min-h-full">
+      <div className="mb-4 flex items-center justify-center lg:mb-5">
+        <ThemeLogo
+          className="h-20 w-auto object-contain opacity-90"
+          sageClassName="h-24 w-auto object-contain opacity-90"
+          disableKnightShadow
+        />
       </div>
 
-      <nav className="mb-auto grid grid-cols-3 gap-1.5 sm:grid-cols-5 lg:flex lg:flex-col lg:gap-2">
+      <nav className="mb-auto flex flex-wrap items-center gap-2 lg:flex-col lg:items-stretch lg:gap-2">
         {navItems.map((item) => (
           <Link
             key={item.label}
             href={item.href}
-            className={`group nav-item flex items-center justify-center gap-2 rounded-xl px-2 py-2.5 text-xs font-medium transition duration-200 sm:px-3 lg:justify-start lg:gap-3 lg:px-3 lg:text-sm ${
+            className={`group nav-item flex h-10 w-10 items-center justify-center rounded-xl text-xs font-medium transition duration-200 lg:h-auto lg:w-auto lg:justify-start lg:gap-3 lg:px-3 lg:py-2.5 lg:text-sm ${
               isActive(item.href)
                 ? "nav-item-active bg-indigo-50 text-indigo-700"
                 : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
@@ -171,7 +169,7 @@ export default function DashboardSidebar({ username }: { username: string }) {
         ))}
       </nav>
 
-      <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+      <div className="dashboard-logout-card mt-6 hidden rounded-2xl border border-slate-200 bg-slate-50 p-4 lg:block">
         <p className="truncate text-sm font-semibold text-slate-900">{username}</p>
         <p className="text-sm text-slate-500">Business Development</p>
         <div className="mt-4">
