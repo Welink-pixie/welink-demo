@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { completeKeeptabzAuthorization } from "@/lib/keeptabz";
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
+  const { searchParams, origin: baseUrl } = new URL(request.url);
   const code = searchParams.get("code");
   const state = searchParams.get("state");
   const oauthError = searchParams.get("error");
@@ -15,7 +15,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    await completeKeeptabzAuthorization(code, state);
+    await completeKeeptabzAuthorization(baseUrl, code, state);
     return redirectWithStatus("connected");
   } catch {
     return redirectWithStatus("error");

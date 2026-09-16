@@ -1,8 +1,7 @@
-import { promises as fs } from "fs";
-import path from "path";
+import { prisma } from "./db";
 
-// Single-tenant token store for the demo: one server-wide KeepTabz connection, persisted to disk
-// so it survives dev-server restarts. Never commit this file (see .gitignore).
+// OAuth state is namespaced by base URL (dev vs. prod) since both share one database, and a
+// client registered with a localhost redirect URI must never be reused for a prod redirect URI.
 type KeeptabzOAuthState = {
   clientInformation?: unknown;
   tokens?: unknown;
@@ -11,46 +10,51 @@ type KeeptabzOAuthState = {
   discoveryState?: unknown;
 };
 
-const STORE_PATH = path.join(process.cwd(), ".tmp", "keeptabz-oauth.json");
+const JSON_FIELDS = new Set<keyof KeeptabzOAuthState>(["clientInformation", "tokens", "discoveryState"]);
 
-async function readStore(): Promise<KeeptabzOAuthState> {
-  try {
-    const raw = await fs.readFile(STORE_PATH, "utf8");
-    return JSON.parse(raw) as KeeptabzOAuthState;
-  } catch {
-    return {};
-  }
+function serialize<K extends keyof KeeptabzOAuthState>(key: K, value: KeeptabzOAuthState[K]): string | null {
+  if (value === undefined) return null;
+  return JSON_FIELDS.has(key) ? JSON.stringify(value) : (value as string);
 }
 
-async function writeStore(next: KeeptabzOAuthState): Promise<void> {
-  await fs.mkdir(path.dirname(STORE_PATH), { recursive: true });
-  await fs.writeFile(STORE_PATH, JSON.stringify(next, null, 2), "utf8");
+function deserialize<K extends keyof KeeptabzOAuthState>(key: K, raw: string | null): KeeptabzOAuthState[K] {
+  if (raw == null) return undefined as KeeptabzOAuthState[K];
+  return (JSON_FIELDS.has(key) ? JSON.parse(raw) : raw) as KeeptabzOAuthState[K];
 }
 
 export async function getStoreValue<K extends keyof KeeptabzOAuthState>(
+  namespace: string,
   key: K
 ): Promise<KeeptabzOAuthState[K]> {
-  const store = await readStore();
-  return store[key];
+  const row = await prisma.keeptabzOAuthState.findUnique({ where: { id: namespace } });
+  if (!row) return undefined as KeeptabzOAuthState[K];
+  return deserialize(key, row[key] as string | null);
 }
 
 export async function setStoreValue<K extends keyof KeeptabzOAuthState>(
+  namespace: string,
   key: K,
   value: KeeptabzOAuthState[K]
 ): Promise<void> {
-  const store = await readStore();
-  store[key] = value;
-  await writeStore(store);
+  const serialized = serialize(key, value);
+  await prisma.keeptabzOAuthState.upsert({
+    where: { id: namespace },
+    create: { id: namespace, [key]: serialized },
+    update: { [key]: serialized },
+  });
 }
 
-export async function clearStoreValues(keys?: (keyof KeeptabzOAuthState)[]): Promise<void> {
-  if (!keys) {
-    await writeStore({});
-    return;
-  }
-  const store = await readStore();
-  for (const key of keys) {
-    delete store[key];
-  }
-  await writeStore(store);
+export async function clearStoreValues(namespace: string, keys?: (keyof KeeptabzOAuthState)[]): Promise<void> {
+  const fields = keys ?? ["clientInformation", "tokens", "codeVerifier", "oauthState", "discoveryState"];
+  const data = Object.fromEntries(fields.map((field) => [field, null]));
+
+  await prisma.keeptabzOAuthState
+    .upsert({
+      where: { id: namespace },
+      create: { id: namespace, ...data },
+      update: data,
+    })
+    .catch(() => {
+      // Nothing to clear if the row never existed.
+    });
 }

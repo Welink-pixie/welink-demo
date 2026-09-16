@@ -12,15 +12,15 @@ export class KeeptabzAuthRequiredError extends Error {
   }
 }
 
-export async function isKeeptabzAuthorized(): Promise<boolean> {
-  const tokens = await getStoreValue("tokens");
+export async function isKeeptabzAuthorized(baseUrl: string): Promise<boolean> {
+  const tokens = await getStoreValue(baseUrl, "tokens");
   return Boolean(tokens);
 }
 
-export async function startKeeptabzAuthorization(): Promise<
+export async function startKeeptabzAuthorization(baseUrl: string): Promise<
   { alreadyAuthorized: true } | { alreadyAuthorized: false; authorizationUrl: string }
 > {
-  const provider = new KeeptabzOAuthProvider();
+  const provider = new KeeptabzOAuthProvider(baseUrl);
   const result = await auth(provider, { serverUrl: KEEPTABZ_API_URL });
 
   if (result === "AUTHORIZED") {
@@ -34,21 +34,21 @@ export async function startKeeptabzAuthorization(): Promise<
   return { alreadyAuthorized: false, authorizationUrl: provider.lastAuthorizationUrl.toString() };
 }
 
-export async function completeKeeptabzAuthorization(code: string, state: string | null): Promise<void> {
-  const stateValid = await verifyKeeptabzOAuthState(state);
+export async function completeKeeptabzAuthorization(baseUrl: string, code: string, state: string | null): Promise<void> {
+  const stateValid = await verifyKeeptabzOAuthState(baseUrl, state);
   if (!stateValid) {
     throw new Error("KeepTabz OAuth state mismatch.");
   }
 
-  const provider = new KeeptabzOAuthProvider();
+  const provider = new KeeptabzOAuthProvider(baseUrl);
   const result = await auth(provider, { serverUrl: KEEPTABZ_API_URL, authorizationCode: code });
 
   if (result !== "AUTHORIZED") {
     throw new Error("KeepTabz authorization did not complete.");
   }
 
-  // Force the next tool call to reconnect using the freshly stored tokens.
-  clientPromise = null;
+  // Force the next tool call for this environment to reconnect using the freshly stored tokens.
+  clientPromises.delete(baseUrl);
 }
 
 export type KeeptabzSocialProfile = {
@@ -78,30 +78,33 @@ export type KeeptabzWorkspace = {
   competitorsCount: number;
 };
 
-// Reused across requests within the same server process; reset on failure so the next call reconnects.
-let clientPromise: Promise<Client> | null = null;
+// Reused across requests within the same server process, one per environment/base URL; reset on failure so the next call reconnects.
+const clientPromises = new Map<string, Promise<Client>>();
 
-async function getClient(): Promise<Client> {
+async function getClient(baseUrl: string): Promise<Client> {
+  let clientPromise = clientPromises.get(baseUrl);
+
   if (!clientPromise) {
     clientPromise = (async () => {
       const transport = new StreamableHTTPClientTransport(new URL(KEEPTABZ_API_URL), {
-        authProvider: new KeeptabzOAuthProvider(),
+        authProvider: new KeeptabzOAuthProvider(baseUrl),
       });
       const client = new Client({ name: "welink-demo", version: "0.1.0" });
       await client.connect(transport);
       return client;
     })().catch((error: unknown) => {
-      clientPromise = null;
+      clientPromises.delete(baseUrl);
       throw error;
     });
+    clientPromises.set(baseUrl, clientPromise);
   }
 
   return clientPromise;
 }
 
-async function callKeeptabzTool<T>(name: string, args: Record<string, unknown> = {}): Promise<T> {
+async function callKeeptabzTool<T>(baseUrl: string, name: string, args: Record<string, unknown> = {}): Promise<T> {
   try {
-    const client = await getClient();
+    const client = await getClient(baseUrl);
     const result = await client.callTool({ name, arguments: args });
     const textBlock = result.content.find(
       (block): block is { type: "text"; text: string } => block.type === "text"
@@ -120,10 +123,13 @@ async function callKeeptabzTool<T>(name: string, args: Record<string, unknown> =
   }
 }
 
-export async function listWorkspaces() {
-  return callKeeptabzTool<{ workspaces: KeeptabzWorkspace[] }>("LIST_WORKSPACES");
+export async function listWorkspaces(baseUrl: string) {
+  return callKeeptabzTool<{ workspaces: KeeptabzWorkspace[] }>(baseUrl, "LIST_WORKSPACES");
 }
 
-export async function listCompetitors(params: { workspaceSlug?: string; search?: string } = {}) {
-  return callKeeptabzTool<{ competitors: KeeptabzCompetitor[] }>("LIST_COMPETITORS", params);
+export async function listCompetitors(
+  baseUrl: string,
+  params: { workspaceSlug?: string; search?: string } = {}
+) {
+  return callKeeptabzTool<{ competitors: KeeptabzCompetitor[] }>(baseUrl, "LIST_COMPETITORS", params);
 }

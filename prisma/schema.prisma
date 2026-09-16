@@ -154,3 +154,14 @@ model AuditLog {
 
   @@index([actorUserId])
 }
+
+// Single-row store for the app-wide KeepTabz OAuth connection (discovery/client/token state).
+model KeeptabzOAuthState {
+  id                String   @id @default("singleton")
+  clientInformation String?
+  tokens            String?
+  codeVerifier      String?
+  oauthState        String?
+  discoveryState    String?
+  updatedAt         DateTime @updatedAt
+}
