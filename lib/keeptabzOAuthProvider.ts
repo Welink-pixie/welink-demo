@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto";
-import type { OAuthClientProvider } from "@modelcontextprotocol/sdk/client/auth.js";
+import type { OAuthClientProvider, OAuthDiscoveryState } from "@modelcontextprotocol/sdk/client/auth.js";
 import type {
   OAuthClientInformationMixed,
   OAuthClientMetadata,
@@ -88,12 +88,12 @@ export class KeeptabzOAuthProvider implements OAuthClientProvider {
     await clearStoreValues(this.namespace, [keyMap[scope]]);
   }
 
-  async saveDiscoveryState(state: unknown) {
+  async saveDiscoveryState(state: OAuthDiscoveryState) {
     await setStoreValue(this.namespace, "discoveryState", state);
   }
 
   async discoveryState() {
-    return await getStoreValue(this.namespace, "discoveryState");
+    return (await getStoreValue(this.namespace, "discoveryState")) as OAuthDiscoveryState | undefined;
   }
 }
 

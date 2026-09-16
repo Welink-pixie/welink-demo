@@ -105,9 +105,11 @@ async function getClient(baseUrl: string): Promise<Client> {
 async function callKeeptabzTool<T>(baseUrl: string, name: string, args: Record<string, unknown> = {}): Promise<T> {
   try {
     const client = await getClient(baseUrl);
-    const result = await client.callTool({ name, arguments: args });
+    const result = (await client.callTool({ name, arguments: args })) as {
+      content: Array<{ type: string; text?: string }>;
+    };
     const textBlock = result.content.find(
-      (block): block is { type: "text"; text: string } => block.type === "text"
+      (block): block is { type: "text"; text: string } => block.type === "text" && typeof block.text === "string"
     );
 
     if (!textBlock) {
