@@ -78,6 +78,48 @@ export type KeeptabzWorkspace = {
   competitorsCount: number;
 };
 
+export type KeeptabzReview = {
+  id: number;
+  competitorId: number;
+  date: string;
+  title: string;
+  summary: string;
+  headline?: string;
+  impactScore: number;
+  primaryTag: string | null;
+  source: string;
+};
+
+export type KeeptabzNewsItem = {
+  id: number;
+  competitorId: number;
+  title: string;
+  summary: string;
+  publishedAt: string;
+  impactScore: number;
+  aiHeadline?: string;
+  primaryTag: string | null;
+};
+
+export type KeeptabzAd = {
+  id: number;
+  competitorId: number;
+  platform: string;
+  aiHeadline: string;
+  impactScore: number;
+  impactScoreReason?: string;
+  primaryTag: string | null;
+  startedAt: string;
+};
+
+export type KeeptabzWorkspaceSnapshot = {
+  workspace: { id: number; name: string; slug: string };
+  competitors: { competitors: KeeptabzCompetitor[] };
+  reviews: { reviews: KeeptabzReview[] };
+  news: { news: KeeptabzNewsItem[] };
+  ads: { ads: KeeptabzAd[] };
+};
+
 // Reused across requests within the same server process, one per environment/base URL; reset on failure so the next call reconnects.
 const clientPromises = new Map<string, Promise<Client>>();
 
@@ -134,4 +176,18 @@ export async function listCompetitors(
   params: { workspaceSlug?: string; search?: string } = {}
 ) {
   return callKeeptabzTool<{ competitors: KeeptabzCompetitor[] }>(baseUrl, "LIST_COMPETITORS", params);
+}
+
+// Most integrations only have (or care about) one workspace; used to avoid asking the caller
+// to know a workspace id/slug up front just to fetch the aggregated snapshot below.
+export async function getDefaultWorkspace(baseUrl: string): Promise<KeeptabzWorkspace | null> {
+  const data = await listWorkspaces(baseUrl);
+  return data.workspaces[0] ?? null;
+}
+
+export async function workspaceSnapshot(
+  baseUrl: string,
+  params: { workspaceId?: number; workspaceSlug?: string; limitPerSection?: number }
+) {
+  return callKeeptabzTool<KeeptabzWorkspaceSnapshot>(baseUrl, "WORKSPACE_SNAPSHOT", params);
 }

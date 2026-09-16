@@ -22,7 +22,7 @@ export async function GET(request: Request) {
       {
         authorized: true,
         competitors: [],
-        error: error instanceof Error ? error.message : "Unable to reach KeepTabz.",
+        error: error instanceof Error ? error.message : "Unable to reach the data provider.",
       },
       { status: 502 }
     );

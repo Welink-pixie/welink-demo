@@ -27,13 +27,13 @@ function competitorToCompany(competitor: KeeptabzSearchCompetitor): Company {
   return {
     id: `kt-${competitor.id}`,
     name: competitor.name,
-    type: "KeepTabz Company",
+    type: "Tracked Company",
     city: competitor.websiteUrl?.replace(/^https?:\/\//, "").replace(/\/$/, "") ?? "Unknown source",
     fitScore: followers > 0 ? Math.min(99, 60 + Math.round(Math.log10(followers + 1) * 8)) : 70,
     value: followers > 0 ? `${followers.toLocaleString()} followers` : "\u2014",
-    tags: reviewTags.length ? reviewTags : ["Competitor Intel"],
+    tags: reviewTags.length ? reviewTags : ["Market Intel"],
     people: [],
-    summary: competitor.overview ?? "No overview available from KeepTabz.",
+    summary: competitor.overview ?? "No overview available.",
     x: "50%",
     y: "50%",
     source: "keeptabz",
@@ -180,7 +180,7 @@ export default function DashboardPage() {
               <div className="relative flex-1 sm:w-64 sm:flex-none">
                 <input
                   type="text"
-                  placeholder="Search KeepTabz companies"
+                  placeholder="Search companies"
                   value={searchQuery}
                   onChange={(event) => setSearchQuery(event.target.value)}
                   onKeyDown={handleSearchKeyDown}
@@ -231,11 +231,11 @@ export default function DashboardPage() {
 
           {searchStatus !== "idle" && (
             <p className="-mt-2 mb-4 text-xs font-medium text-slate-500">
-              {searchStatus === "loading" && "Searching KeepTabz…"}
-              {searchStatus === "not-found" && `No KeepTabz match for "${searchQuery}".`}
+              {searchStatus === "loading" && "Searching\u2026"}
+              {searchStatus === "not-found" && `No match for "${searchQuery}".`}
               {searchStatus === "needs-auth" && (
                 <>
-                  KeepTabz isn&apos;t connected.{" "}
+                  Company data isn&apos;t connected.{" "}
                   <Link href="/dashboard/market-intel" className="text-indigo-600 hover:underline">
                     Connect it
                   </Link>{" "}
@@ -278,7 +278,7 @@ export default function DashboardPage() {
                       </div>
                       <div className="text-right">
                         <p className="text-3xl font-bold text-emerald-600">{selectedCompany.fitScore}%</p>
-                        <p className="text-xs font-semibold text-emerald-600">KeepTabz Match</p>
+                        <p className="text-xs font-semibold text-emerald-600">Verified Match</p>
                       </div>
                     </div>
 
