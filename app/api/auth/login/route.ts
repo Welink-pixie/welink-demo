@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import {
   AUTH_COOKIE_NAME,
+  AUTH_DEFAULT_SUBSCRIBED,
   AUTH_PASSWORD,
+  AUTH_SUBSCRIPTION_COOKIE_NAME,
   AUTH_USERNAME,
   AUTH_USERNAME_COOKIE_NAME,
 } from "@/lib/auth";
@@ -22,6 +24,12 @@ export async function POST(request: Request) {
       maxAge: 60 * 60 * 24 * 7,
     });
     response.cookies.set(AUTH_USERNAME_COOKIE_NAME, body.username, {
+      httpOnly: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+    });
+    response.cookies.set(AUTH_SUBSCRIPTION_COOKIE_NAME, AUTH_DEFAULT_SUBSCRIBED ? "active" : "inactive", {
       httpOnly: true,
       sameSite: "lax",
       path: "/",

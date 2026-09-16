@@ -1,16 +1,34 @@
+import Link from "next/link";
+
 export default function OpportunitiesPage() {
   return (
     <section className="p-4 lg:p-5">
-      <div className="mb-4">
-        <h1 className="text-2xl font-semibold tracking-tight text-slate-950">
-          Opportunities
-        </h1>
-        <p className="text-sm text-slate-500">Explore potential business opportunities</p>
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight text-slate-950">
+            Opportunities
+          </h1>
+          <p className="text-sm text-slate-500">Explore potential business opportunities</p>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <Link
+            href="/dashboard/experimental-survey"
+            className="rounded-xl border border-indigo-300 bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-100"
+          >
+            Open Intake Survey Lab
+          </Link>
+          <Link
+            href="/dashboard/opportunities/opsec-search"
+            className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+          >
+            Open OPSEC Search Lab
+          </Link>
+        </div>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
         {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="rounded-2xl border border-slate-200 bg-white p-5">
+          <div key={i} className="morphic-card rounded-3xl p-5">
             <div className="flex items-start justify-between">
               <div>
                 <h3 className="text-lg font-semibold text-slate-900">Opportunity {i}</h3>

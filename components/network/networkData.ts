@@ -13,6 +13,8 @@ export type Company = {
   mobileX?: string;
   mobileY?: string;
   featured?: boolean;
+  // Set when this node came from a live KeepTabz search rather than the mock network.
+  source?: "keeptabz";
 };
 
 export const companies: Company[] = [

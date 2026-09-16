@@ -4,7 +4,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ThemeLogo from "@/components/ui/ThemeLogo";
 
 export default function LoginForm() {
@@ -13,12 +13,13 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState<string>("classic");
+  const [currentTheme, setCurrentTheme] = useState<string>(() => {
+    if (typeof window === "undefined") {
+      return "classic";
+    }
 
-  useEffect(() => {
-    const stored = localStorage.getItem("app-theme") || "classic";
-    setCurrentTheme(stored);
-  }, []);
+    return localStorage.getItem("app-theme") || "classic";
+  });
 
   const switchTheme = (theme: "classic" | "sage" | "forest" | "graham" | "graham-signature") => {
     localStorage.setItem("app-theme", theme);

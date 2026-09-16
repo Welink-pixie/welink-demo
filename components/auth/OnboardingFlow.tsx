@@ -202,7 +202,7 @@ export default function OnboardingFlow() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ fullName: profile.fullName }),
+        body: JSON.stringify(profile),
       });
 
       const data = (await response.json()) as { error?: string };

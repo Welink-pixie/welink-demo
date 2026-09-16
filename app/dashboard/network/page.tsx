@@ -8,7 +8,7 @@ export default function NetworkPage() {
         <p className="text-sm text-slate-500">View and manage your professional network</p>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center">
+      <div className="morphic-card rounded-3xl p-8 text-center">
         <p className="text-slate-500">Network visualization and management coming soon</p>
       </div>
     </section>

@@ -2,21 +2,15 @@
 
 // components/network/NetworkMap.tsx
 
-import { companies } from "./networkData";
+import type { Company } from "./networkData";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-
-const connections = [
-  ["demacco", "northline"],
-  ["demacco", "healthfirst"],
-  ["demacco", "futureflow"],
-  ["demacco", "vertex"],
-];
 
 type NetworkMapProps = {
   selectedCompanyId?: string;
   onSelectCompany?: (companyId: string) => void;
   mapHref?: string;
+  extraCompanies?: Company[];
 };
 
 type AppTheme = "classic" | "sage" | "forest" | "graham" | "graham-signature";
@@ -221,21 +215,29 @@ function clamp(value: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, value));
 }
 
-const fitScoresDescending = [...new Set(companies.map((company) => company.fitScore))].sort((a, b) => b - a);
+// Browsers round inline style numbers when parsing them back out; pre-rounding keeps SSR and client markup byte-identical.
+function round4(value: number): number {
+  return Math.round(value * 10000) / 10000;
+}
 
-const fitScoreBounds = companies.reduce(
-  (bounds, company) => ({
-    min: Math.min(bounds.min, company.fitScore),
-    max: Math.max(bounds.max, company.fitScore),
-  }),
-  { min: Number.POSITIVE_INFINITY, max: Number.NEGATIVE_INFINITY },
-);
-
-const secondHighestFitScore = fitScoresDescending[1] ?? fitScoreBounds.max;
+// Fixed range for sizing/coloring nodes by fit score, independent of any particular dataset.
+const fitScoreBounds = { min: 50, max: 99 };
 
 function fitScaleForScore(fitScore: number): number {
   const span = Math.max(fitScoreBounds.max - fitScoreBounds.min, 1);
   return clamp((fitScore - fitScoreBounds.min) / span, 0, 1);
+}
+
+// Deterministic placement for companies without a hardcoded lat/lon (e.g. live KeepTabz search results).
+function fallbackCoordinatesForId(id: string): { lat: number; lon: number } {
+  let hash = 0;
+  for (let i = 0; i < id.length; i += 1) {
+    hash = (hash * 31 + id.charCodeAt(i)) >>> 0;
+  }
+  return {
+    lat: (hash % 120) - 60,
+    lon: ((hash >> 8) % 340) - 170,
+  };
 }
 
 function latLonToVec3(lat: number, lon: number): Vec3 {
@@ -300,7 +302,7 @@ function CompanyNode({
   onNodePointerDown,
   isDragging,
 }: {
-  company: (typeof companies)[number];
+  company: Company;
   selected?: boolean;
   position: ProjectedPoint;
   theme: AppTheme;
@@ -311,8 +313,8 @@ function CompanyNode({
   isDragging?: boolean;
 }) {
   const fitScale = fitScaleForScore(company.fitScore);
-  const isTopFitScore = company.fitScore === fitScoreBounds.max;
-  const topFitBoost = isTopFitScore && secondHighestFitScore < fitScoreBounds.max ? 1.1 : 1;
+  const isTopFitScore = company.fitScore >= fitScoreBounds.max;
+  const topFitBoost = isTopFitScore ? 1.1 : 1;
   const nodeSize = (80 + fitScale * 32) * topFitBoost;
   const nodeSizeLg = (112 + fitScale * 32) * topFitBoost;
   const coreSize = (36 + fitScale * 12) * topFitBoost;
@@ -374,10 +376,10 @@ function CompanyNode({
       `}
       style={{
         ...nodeSizeStyle,
-        left: `${position.left}%`,
-        top: `${position.top}%`,
-        transform: `translate(-50%, -50%) scale(${position.scale})`,
-        opacity: position.opacity,
+        left: `${round4(position.left)}%`,
+        top: `${round4(position.top)}%`,
+        transform: `translate(-50%, -50%) scale(${round4(position.scale)})`,
+        opacity: round4(position.opacity),
         zIndex: Math.round(position.depth * 40) + Math.round(fitScale * 10),
       }}
       aria-label={company.name}
@@ -410,7 +412,7 @@ function CompanyNode({
   );
 }
 
-export default function NetworkMap({ selectedCompanyId, onSelectCompany, mapHref }: NetworkMapProps) {
+export default function NetworkMap({ selectedCompanyId, onSelectCompany, mapHref, extraCompanies }: NetworkMapProps) {
   const router = useRouter();
   const mapRef = useRef<HTMLDivElement | null>(null);
   const dragRef = useRef<DragState | null>(null);
@@ -420,12 +422,7 @@ export default function NetworkMap({ selectedCompanyId, onSelectCompany, mapHref
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [dragOffsets, setDragOffsets] = useState<Record<string, DragOffset>>({});
   const [showHint, setShowHint] = useState(true);
-  const [isClientReady, setIsClientReady] = useState(false);
   const [currentTheme, setCurrentTheme] = useState<AppTheme>("classic");
-
-  useEffect(() => {
-    setIsClientReady(true);
-  }, []);
 
   useEffect(() => {
     const readTheme = () => {
@@ -486,11 +483,13 @@ export default function NetworkMap({ selectedCompanyId, onSelectCompany, mapHref
     };
   }, []);
 
+  const allCompanies = useMemo(() => extraCompanies ?? [], [extraCompanies]);
+
   const positions = useMemo(() => {
     const map: Record<string, ProjectedPoint> = {};
 
-    for (const company of companies) {
-      const coords = companyCoordinates[company.id] ?? { lat: 0, lon: 0 };
+    for (const company of allCompanies) {
+      const coords = companyCoordinates[company.id] ?? fallbackCoordinatesForId(company.id);
       const basePoint = latLonToVec3(coords.lat, coords.lon);
       const rotatedY = rotateY(basePoint, rotationDeg);
       const tilted = rotateX(rotatedY, -14);
@@ -504,13 +503,38 @@ export default function NetworkMap({ selectedCompanyId, onSelectCompany, mapHref
       };
     }
 
+    // The globe projection can place two nodes near-identical 2D coordinates (e.g. opposite
+    // hemispheres), so nudge any that render too close apart to a guaranteed minimum distance.
+    const ids = Object.keys(map);
+    const minDistance = 16;
+    for (let pass = 0; pass < 4; pass += 1) {
+      for (let i = 0; i < ids.length; i += 1) {
+        for (let j = i + 1; j < ids.length; j += 1) {
+          const a = map[ids[i]];
+          const b = map[ids[j]];
+          const dx = b.left - a.left;
+          const dy = b.top - a.top;
+          const distance = Math.hypot(dx, dy) || 0.0001;
+
+          if (distance < minDistance) {
+            const push = (minDistance - distance) / 2;
+            const nx = dx / distance;
+            const ny = dy / distance;
+            a.left = clamp(a.left - nx * push, 8, 92);
+            a.top = clamp(a.top - ny * push, 8, 92);
+            b.left = clamp(b.left + nx * push, 8, 92);
+            b.top = clamp(b.top + ny * push, 8, 92);
+          }
+        }
+      }
+    }
+
     return map;
-  }, [dragOffsets, isMobile, rotationDeg]);
+  }, [allCompanies, dragOffsets, isMobile, rotationDeg]);
 
   const activeNodeStyles = nodeStylesByTheme[currentTheme] ?? nodeStylesByTheme.classic;
   const ambientDotClass =
     currentTheme === "sage" ? "bg-[#c8a25a]" : currentTheme === "forest" ? "bg-[#cba85a]" : currentTheme === "graham" || currentTheme === "graham-signature" ? "bg-[#b9a06a]" : "bg-indigo-300";
-  const connectorStroke = currentTheme === "sage" ? "#b79a63" : currentTheme === "forest" ? "#cba85a" : currentTheme === "graham" || currentTheme === "graham-signature" ? "#94aa97" : "#94a3b8";
   const mapBackgroundClass =
     currentTheme === "sage"
       ? "bg-[radial-gradient(circle_at_50%_50%,#fbf7ef_0%,#f2e8d4_48%,#fffdf8_100%)]"
@@ -657,46 +681,29 @@ export default function NetworkMap({ selectedCompanyId, onSelectCompany, mapHref
       <div className="absolute left-1/2 top-1/2 h-[68%] w-[82%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-200/40" style={{ transform: "translate(-50%, -50%) rotate(-28deg)" }} />
 
       <div className="absolute inset-0">
-        {isClientReady &&
-          projectedAmbientDots.map((dot, index) => (
-            <span
-              key={`dot-${index}`}
-              className={`pointer-events-none absolute h-1.5 w-1.5 rounded-full ${ambientDotClass}`}
-              style={{
-                left: `${dot.left}%`,
-                top: `${dot.top}%`,
-                opacity: dot.opacity * 0.42,
-                transform: `translate(-50%, -50%) scale(${0.55 + dot.depth * 0.65})`,
-              }}
-            />
-          ))}
+        {projectedAmbientDots.map((dot, index) => (
+          <span
+            key={`dot-${index}`}
+            className={`pointer-events-none absolute h-1.5 w-1.5 rounded-full ${ambientDotClass}`}
+            style={{
+              left: `${round4(dot.left)}%`,
+              top: `${round4(dot.top)}%`,
+              opacity: round4(dot.opacity * 0.42),
+              transform: `translate(-50%, -50%) scale(${round4(0.55 + dot.depth * 0.65)})`,
+            }}
+          />
+        ))}
 
-        <svg className="absolute inset-0 h-full w-full pointer-events-none">
-          {connections.map(([from, to]) => {
-            const a = positions[from];
-            const b = positions[to];
+        {allCompanies.length === 0 && (
+          <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
+            <p className="text-sm font-medium text-slate-500">No companies yet</p>
+            <p className="mt-1 max-w-[220px] text-xs text-slate-400">
+              Search a company above to add it to the map.
+            </p>
+          </div>
+        )}
 
-            if (!a || !b) {
-              return null;
-            }
-
-            return (
-              <line
-                key={`${from}-${to}`}
-                x1={`${a.left}%`}
-                y1={`${a.top}%`}
-                x2={`${b.left}%`}
-                y2={`${b.top}%`}
-                stroke={connectorStroke}
-                strokeWidth="1.5"
-                strokeDasharray="5 8"
-                opacity={0.25 + ((a.depth + b.depth) / 2) * 0.55}
-              />
-            );
-          })}
-        </svg>
-
-        {companies.map((company) => (
+        {allCompanies.map((company) => (
           <CompanyNode
             key={company.id}
             company={company}

@@ -33,6 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# local scratch / OAuth token store (never commit tokens)
+.tmp/
+
 # vercel
 .vercel
 
@@ -41,3 +44,5 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+/lib/generated/prisma

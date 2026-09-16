@@ -8,32 +8,29 @@ import ThemeLogo from "@/components/ui/ThemeLogo";
 type NavIconName =
   | "home"
   | "network"
-  | "matches"
-  | "opportunities"
-  | "introductions"
+  | "explore"
+  | "intel"
   | "messages"
-  | "activity"
-  | "reports"
-  | "saved";
+  | "lock";
 
-const navItems = [
+type NavItem = {
+  label: string;
+  icon: NavIconName;
+  href: string;
+  requiresSubscription?: boolean;
+};
+
+const navItems: NavItem[] = [
   { label: "Home", icon: "home" as NavIconName, href: "/dashboard" },
   { label: "Network", icon: "network" as NavIconName, href: "/dashboard/network" },
-  { label: "Matches", icon: "matches" as NavIconName, href: "/dashboard/matches" },
+  { label: "Explore", icon: "explore" as NavIconName, href: "/dashboard/matches" },
+  { label: "Market Intel", icon: "intel" as NavIconName, href: "/dashboard/market-intel" },
   {
-    label: "Opportunities",
-    icon: "opportunities" as NavIconName,
-    href: "/dashboard/opportunities",
+    label: "Messages",
+    icon: "messages" as NavIconName,
+    href: "/dashboard/messages",
+    requiresSubscription: true,
   },
-  {
-    label: "Introductions",
-    icon: "introductions" as NavIconName,
-    href: "/dashboard/introductions",
-  },
-  { label: "Messages", icon: "messages" as NavIconName, href: "/dashboard/messages" },
-  { label: "Activity", icon: "activity" as NavIconName, href: "/dashboard/activity" },
-  { label: "Reports", icon: "reports" as NavIconName, href: "/dashboard/reports" },
-  { label: "Saved", icon: "saved" as NavIconName, href: "/dashboard/saved" },
 ];
 
 function SidebarIcon({ name }: { name: NavIconName }) {
@@ -56,27 +53,17 @@ function SidebarIcon({ name }: { name: NavIconName }) {
           <path d="M8 7.2l7.7-.9M7.4 8.1l3.8 7.8M16.9 9.1l-3.4 6.8" strokeLinecap="round" />
         </svg>
       );
-    case "matches":
+    case "explore":
       return (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={baseClass}>
-          <path d="M13 3L5 13h5l-1 8 8-10h-5l1-8z" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="11" cy="11" r="6.5" />
+          <path d="M16 16l5 5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       );
-    case "opportunities":
+    case "intel":
       return (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={baseClass}>
-          <circle cx="12" cy="12" r="8" />
-          <circle cx="12" cy="12" r="4" />
-          <circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none" />
-        </svg>
-      );
-    case "introductions":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={baseClass}>
-          <circle cx="8" cy="9" r="2.5" />
-          <circle cx="16" cy="9" r="2.5" />
-          <path d="M4.5 18c.9-2.2 2.5-3.3 5-3.3s4.1 1.1 5 3.3" strokeLinecap="round" />
-          <path d="M14.5 18h5" strokeLinecap="round" />
+          <path d="M3 13h3.5l2-5 3 10 2.5-7 2 3.5H21" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       );
     case "messages":
@@ -85,30 +72,11 @@ function SidebarIcon({ name }: { name: NavIconName }) {
           <path d="M5 5h14v10H9l-4 4V5z" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       );
-    case "activity":
+    case "lock":
       return (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={baseClass}>
-          <path d="M4 19h16" strokeLinecap="round" />
-          <rect x="6" y="11" width="2.8" height="6" rx="0.8" />
-          <rect x="10.6" y="8" width="2.8" height="9" rx="0.8" />
-          <rect x="15.2" y="6" width="2.8" height="11" rx="0.8" />
-        </svg>
-      );
-    case "reports":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={baseClass}>
-          <path d="M4 19h16" strokeLinecap="round" />
-          <path d="M6 15l3.8-4 3.5 2.5L18 8" strokeLinecap="round" strokeLinejoin="round" />
-          <circle cx="6" cy="15" r="1" fill="currentColor" stroke="none" />
-          <circle cx="9.8" cy="11" r="1" fill="currentColor" stroke="none" />
-          <circle cx="13.3" cy="13.5" r="1" fill="currentColor" stroke="none" />
-          <circle cx="18" cy="8" r="1" fill="currentColor" stroke="none" />
-        </svg>
-      );
-    case "saved":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={baseClass}>
-          <path d="M7 4h10v16l-5-3-5 3V4z" strokeLinecap="round" strokeLinejoin="round" />
+          <rect x="5" y="11" width="14" height="10" rx="2" />
+          <path d="M8 11V8a4 4 0 0 1 8 0v3" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       );
     default:
@@ -116,7 +84,13 @@ function SidebarIcon({ name }: { name: NavIconName }) {
   }
 }
 
-export default function DashboardSidebar({ username }: { username: string }) {
+export default function DashboardSidebar({
+  username,
+  isSubscribed,
+}: {
+  username: string;
+  isSubscribed: boolean;
+}) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -144,32 +118,48 @@ export default function DashboardSidebar({ username }: { username: string }) {
       </div>
 
       <nav className="mb-auto flex flex-wrap items-center gap-2 lg:flex-col lg:items-stretch lg:gap-2">
-        {navItems.map((item) => (
-          <Link
-            key={item.label}
-            href={item.href}
-            className={`group nav-item flex h-10 w-10 items-center justify-center rounded-xl text-xs font-medium transition duration-200 lg:h-auto lg:w-auto lg:justify-start lg:gap-3 lg:px-3 lg:py-2.5 lg:text-sm ${
-              isActive(item.href)
-                ? "nav-item-active bg-indigo-50 text-indigo-700"
+        {navItems.map((item) => {
+          const isLocked = item.requiresSubscription && !isSubscribed;
+          const active = !isLocked && isActive(item.href);
+          const shellClass = `group nav-item flex h-10 w-10 items-center justify-center rounded-xl text-xs font-medium transition duration-200 lg:h-auto lg:w-auto lg:justify-start lg:gap-3 lg:px-3 lg:py-2.5 lg:text-sm ${
+            active
+              ? "nav-item-active morphic-pill text-indigo-700"
+              : isLocked
+                ? "cursor-not-allowed text-slate-400"
                 : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-            }`}
-            title={item.label}
-          >
-            <span
-              className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border transition ${
-                isActive(item.href)
-                  ? "nav-icon-active border-indigo-200 bg-white text-indigo-700"
-                  : "border-slate-200 bg-white text-slate-500 group-hover:text-slate-700"
-              }`}
-            >
-              <SidebarIcon name={item.icon} />
-            </span>
-            <span className="hidden text-left lg:block">{item.label}</span>
-          </Link>
-        ))}
+          }`;
+
+          const iconClass = `flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition ${
+            active
+              ? "nav-icon-active morphic-avatar text-indigo-700"
+              : isLocked
+                ? "border border-slate-200 bg-slate-100 text-slate-400"
+                : "border border-slate-200 bg-white text-slate-500 group-hover:text-slate-700"
+          }`;
+
+          if (isLocked) {
+            return (
+              <div key={item.label} className={shellClass} title="Subscribe to unlock Messages" aria-disabled="true">
+                <span className={iconClass}>
+                  <SidebarIcon name="lock" />
+                </span>
+                <span className="hidden text-left lg:block">{item.label}</span>
+              </div>
+            );
+          }
+
+          return (
+            <Link key={item.label} href={item.href} className={shellClass} title={item.label}>
+              <span className={iconClass}>
+                <SidebarIcon name={item.icon} />
+              </span>
+              <span className="hidden text-left lg:block">{item.label}</span>
+            </Link>
+          );
+        })}
       </nav>
 
-      <div className="dashboard-logout-card mt-6 hidden rounded-2xl border border-slate-200 bg-slate-50 p-4 lg:block">
+      <div className="dashboard-logout-card morphic-card-inset mt-6 hidden rounded-2xl p-4 lg:block">
         <p className="truncate text-sm font-semibold text-slate-900">{username}</p>
         <p className="text-sm text-slate-500">Business Development</p>
         <div className="mt-4">

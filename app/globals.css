@@ -25,7 +25,55 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Morphic (soft-UI) design system: soft extruded shadows + light glass overlays. */
+.morphic-shell {
+  background: radial-gradient(120% 140% at 0% 0%, #eef1fb 0%, #f6f7fc 45%, #eef1fb 100%);
+}
+
+.morphic-card {
+  background: linear-gradient(155deg, #ffffff 0%, #eef1fa 100%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    10px 10px 24px rgba(163, 177, 198, 0.35),
+    -10px -10px 24px rgba(255, 255, 255, 0.85);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.morphic-card:hover {
+  box-shadow:
+    14px 14px 30px rgba(163, 177, 198, 0.4),
+    -14px -14px 30px rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+.morphic-card-inset {
+  background: linear-gradient(155deg, #eef1fa 0%, #ffffff 100%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    inset 6px 6px 14px rgba(163, 177, 198, 0.3),
+    inset -6px -6px 14px rgba(255, 255, 255, 0.75);
+}
+
+.morphic-avatar {
+  background: linear-gradient(155deg, #eef1fa 0%, #ffffff 100%);
+  box-shadow:
+    4px 4px 10px rgba(163, 177, 198, 0.35),
+    -4px -4px 10px rgba(255, 255, 255, 0.85);
+}
+
+.morphic-pill {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    3px 3px 8px rgba(163, 177, 198, 0.3),
+    -3px -3px 8px rgba(255, 255, 255, 0.7);
 }
 
 :root {
@@ -236,6 +284,53 @@ body {
     transform: translateY(0) rotate(12deg) scale(1);
   }
   50% {
+
+  .experimental-survey-button {
+    border: 1px solid #a5b4fc;
+    background-color: #eef2ff;
+    color: #3730a3;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .experimental-survey-button:hover {
+    background-color: #e0e7ff;
+    border-color: #818cf8;
+  }
+
+  [data-theme="sage"] .experimental-survey-button {
+    border-color: #e8dcc5;
+    background-color: #f5ead4;
+    color: #8c6a1f;
+  }
+
+  [data-theme="sage"] .experimental-survey-button:hover {
+    background-color: #f0e1c0;
+    border-color: #d9c07f;
+  }
+
+  [data-theme="forest"] .experimental-survey-button {
+    border-color: #8eb39a;
+    background-color: #eef6ec;
+    color: #10261a;
+  }
+
+  [data-theme="forest"] .experimental-survey-button:hover {
+    background-color: #e4f0e0;
+    border-color: #6f9e84;
+  }
+
+  [data-theme="graham"] .experimental-survey-button,
+  [data-theme="graham-signature"] .experimental-survey-button {
+    border-color: #d6c08c;
+    background-color: #fff6dd;
+    color: #7c5a11;
+  }
+
+  [data-theme="graham"] .experimental-survey-button:hover,
+  [data-theme="graham-signature"] .experimental-survey-button:hover {
+    background-color: #fceebd;
+    border-color: #caa64c;
+  }
     transform: translateY(-6px) rotate(-10deg) scale(0.98);
   }
 }
@@ -651,55 +746,8 @@ body {
 }
 
 /* Forest theme layer: deep green with dark mode styling */
-[data-theme="forest"] .bg-white {
-  background-color: #2a5a42 !important;
-}
-
-[data-theme="forest"] .bg-slate-50,
-[data-theme="forest"] .bg-slate-50\/80 {
-  background-color: #1f4d36 !important;
-}
-
-[data-theme="forest"] .bg-slate-900,
-[data-theme="forest"] .bg-slate-950 {
-  background-color: #0f2818 !important;
-}
-
-[data-theme="forest"] .text-slate-950,
-[data-theme="forest"] .text-slate-900 {
-  color: #f4f8b8 !important;
-}
-
-[data-theme="forest"] .text-slate-700 {
-  color: #e8f0d0 !important;
-}
-
-[data-theme="forest"] .text-slate-600,
-[data-theme="forest"] .text-slate-500 {
-  color: #d4e0b8 !important;
-}
-
-[data-theme="forest"] .border-slate-200,
-[data-theme="forest"] .border-slate-100 {
-  border-color: #3d6a52 !important;
-}
-
-[data-theme="forest"] .focus\:border-violet-500:focus,
-[data-theme="forest"] .focus\:border-indigo-300:focus {
-  border-color: #cba85a !important;
-}
-
-[data-theme="forest"] .text-indigo-600,
-[data-theme="forest"] .text-violet-600,
-[data-theme="forest"] .text-violet-700,
-[data-theme="forest"] .text-indigo-500 {
-  color: #cba85a !important;
-}
-
-[data-theme="forest"] .border-indigo-200,
-[data-theme="forest"] .border-indigo-300,
-[data-theme="forest"] .border-violet-300 {
-  border-color: #8a7a57 !important;
+[data-theme="sage"] .theme-logo-sage {
+  display: none;
 }
 
 [data-theme="forest"] .border-sky-300,
@@ -727,6 +775,12 @@ body {
 [data-theme="forest"] .bg-emerald-50,
 [data-theme="forest"] .bg-emerald-500 {
   background-color: #2a5a42 !important;
+}
+
+[data-theme="forest"] .experimental-notice-banner {
+  background-color: #eef6ec !important;
+  border-color: #8eb39a !important;
+  color: #10261a !important;
 }
 
 [data-theme="forest"] .border-emerald-200 {
